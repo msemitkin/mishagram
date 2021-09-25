@@ -12,17 +12,20 @@ public class Post {
     private final String description;
     @NotNull
     private final LocalDateTime createDateTime;
+    private final boolean isDeleted;
 
     public Post(
         int id,
         int ownerId,
         @NotNull String description,
-        @NotNull LocalDateTime createDateTime
+        @NotNull LocalDateTime createDateTime,
+         boolean isDeleted
     ) {
         this.id = id;
         this.ownerId = ownerId;
         this.description = description;
         this.createDateTime = createDateTime;
+        this.isDeleted = isDeleted;
     }
 
     public int getId() {
@@ -43,4 +46,7 @@ public class Post {
         return createDateTime;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
 }
