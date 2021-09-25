@@ -5,7 +5,7 @@ import ua.knu.mishagram.Post;
 
 import java.util.List;
 
-public interface GetUserFavouritePosts {
+public interface GetUserFavouritePostsUseCase {
 
     @NotNull
     List<Post> getUserFavouritePosts(int userId);

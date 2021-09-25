@@ -1,7 +1,9 @@
 package ua.knu.mishagram.post.create;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface CreatePostUseCase {
 
-    void createPost(CreatePostCommand createPostCommand);
+    void createPost(@NotNull CreatePostCommand createPostCommand);
 
 }
