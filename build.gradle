@@ -11,6 +11,16 @@ sourceCompatibility = '17'
 repositories {
     mavenCentral()
 }
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        apply plugin: 'java'
+        implementation 'org.jetbrains:annotations:16.0.1'
+    }
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

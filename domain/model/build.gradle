@@ -1,3 +1,8 @@
 plugins {
     id 'java'
 }
+
+group 'ua.knu'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_17
