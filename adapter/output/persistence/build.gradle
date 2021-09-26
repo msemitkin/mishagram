@@ -4,7 +4,8 @@ plugins {
 
 dependencies {
     implementation project(":domain:model")
+    implementation project(":domain:port:output:persistence")
 
-    implementation 'org.springframework:spring-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.5'
     implementation 'org.flywaydb:flyway-core:5.0.3'
 }

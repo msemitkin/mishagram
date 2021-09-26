@@ -4,6 +4,7 @@ import ua.knu.mishagram.User;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.user.SaveUserPort;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class RegisterUserService implements RegisterUserUseCase {
@@ -31,6 +32,6 @@ public class RegisterUserService implements RegisterUserUseCase {
     }
 
     private User mapToUser(RegisterUserCommand registerUserCommand) {
-        return new User(0, registerUserCommand.getEmail(), false);
+        return new User(0, registerUserCommand.getEmail(), false, LocalDateTime.now());
     }
 }
