@@ -9,6 +9,6 @@ import java.util.List;
 public interface LoadUserPostsAfterDateTimePort {
 
     @NotNull
-    List<Post> getAll(@NotNull List<Integer> userIds, @NotNull LocalDateTime since);
+    List<Post> getAllAfterDateTime(@NotNull List<Integer> userIds, @NotNull LocalDateTime since);
 
 }

@@ -12,7 +12,7 @@ public interface LoadPostPort {
     Optional<Post> loadById(int id);
 
     @NotNull
-    List<Post> loadAll(List<Integer> ids);
+    List<Post> loadAllByIds(List<Integer> ids);
 
     @NotNull
     List<Post> loadAllByUserId(int ownerId);

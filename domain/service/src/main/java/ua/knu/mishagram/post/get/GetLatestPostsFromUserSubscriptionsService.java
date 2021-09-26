@@ -24,6 +24,6 @@ public class GetLatestPostsFromUserSubscriptionsService implements GetLatestPost
     public List<Post> getAllFromUserSubscriptionsInPeriod(int userId, Period period) {
         LocalDateTime loadFromDateTime = LocalDateTime.now().minus(period);
         List<Integer> subscriptions = loadUserSubscriptionsPort.getAllByUserId(userId);
-        return loadUserPostsAfterDateTimePort.getAll(subscriptions, loadFromDateTime);
+        return loadUserPostsAfterDateTimePort.getAllAfterDateTime(subscriptions, loadFromDateTime);
     }
 }

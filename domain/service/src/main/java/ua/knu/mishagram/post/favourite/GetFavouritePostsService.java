@@ -27,7 +27,7 @@ public class GetFavouritePostsService implements GetUserFavouritePostsUseCase {
         if (postIds.isEmpty()) {
             return Collections.emptyList();
         }
-        return loadPostPort.loadAll(postIds);
+        return loadPostPort.loadAllByIds(postIds);
     }
 
 }
