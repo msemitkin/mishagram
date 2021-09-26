@@ -3,22 +3,24 @@ package ua.knu.mishagram.post.create;
 import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.SavePostPort;
+import ua.knu.mishagram.time.DateTimeProvider;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.user.UserNotFoundException;
-
-import java.time.LocalDateTime;
 
 public class CreatePostService implements CreatePostUseCase {
 
     private final SavePostPort savePostPort;
     private final LoadUserPort loadUserPort;
+    private final DateTimeProvider dateTimeProvider;
 
     public CreatePostService(
         SavePostPort savePostPort,
-        LoadUserPort loadUserPort
+        LoadUserPort loadUserPort,
+        DateTimeProvider dateTimeProvider
     ) {
         this.savePostPort = savePostPort;
         this.loadUserPort = loadUserPort;
+        this.dateTimeProvider = dateTimeProvider;
     }
 
     @Override
@@ -36,8 +38,8 @@ public class CreatePostService implements CreatePostUseCase {
             0,
             createPostCommand.getOwnerId(),
             createPostCommand.getDescription(),
-            LocalDateTime.now(),
-             false
+            dateTimeProvider.now(),
+            false
         );
     }
 

@@ -6,7 +6,7 @@ plugins {
 
 group = 'ua.knu.mishagram'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
@@ -20,8 +20,4 @@ subprojects {
         apply plugin: 'java'
         implementation 'org.jetbrains:annotations:16.0.1'
     }
-}
-
-test {
-    useJUnitPlatform()
 }
