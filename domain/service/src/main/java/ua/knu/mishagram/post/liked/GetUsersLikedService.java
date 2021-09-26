@@ -28,7 +28,7 @@ public class GetUsersLikedService implements GetUsersLikedUseCase {
     public @NotNull List<User> getUsersLiked(int postId) {
         loadPostPort.loadById(postId)
             .orElseThrow(() -> new PostNotFoundException(postId, "Post with given id does not exist"));
-        List<Integer> userIds = loadUsersLikedPostPort.getAll(postId);
+        List<Integer> userIds = loadUsersLikedPostPort.getAllUsersLiked(postId);
         return loadUserPort.loadAll(userIds);
     }
 }

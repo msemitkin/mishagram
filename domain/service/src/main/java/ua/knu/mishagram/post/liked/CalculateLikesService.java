@@ -20,6 +20,6 @@ public class CalculateLikesService implements CalculateLikesUseCase {
     public int calculateLikes(int postId) {
         loadPostPort.loadById(postId)
             .orElseThrow(() -> new PostNotFoundException(postId, "Post with given id does not exist"));
-        return calculateLikesPort.calculate(postId);
+        return calculateLikesPort.calculateLikes(postId);
     }
 }

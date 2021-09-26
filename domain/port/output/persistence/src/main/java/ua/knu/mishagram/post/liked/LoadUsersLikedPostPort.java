@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface LoadUsersLikedPostPort {
 
-    List<Integer> getAll(int postId);
+    List<Integer> getAllUsersLiked(int postId);
 
 }
