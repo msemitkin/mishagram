@@ -6,6 +6,7 @@ dependencies {
     implementation project(":domain:model")
     implementation project(":domain:port:output:persistence")
 
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:${spring_framework_version}'
     implementation 'org.flywaydb:flyway-core:5.0.3'
+    runtimeOnly 'org.postgresql:postgresql'
 }
