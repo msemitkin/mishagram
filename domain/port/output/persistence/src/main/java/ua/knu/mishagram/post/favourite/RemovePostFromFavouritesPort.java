@@ -2,6 +2,6 @@ package ua.knu.mishagram.post.favourite;
 
 public interface RemovePostFromFavouritesPort {
 
-    void remove(int postId, int userId);
+    void removeFromFavourites(int postId, int userId);
 
 }

@@ -28,6 +28,6 @@ public class RemovePostFromFavouritesService implements RemovePostFromFavourites
             .orElseThrow(() -> new UserNotFoundException(userId, "User with given id does not exist"));
         loadPostPort.loadById(postId)
             .orElseThrow(() -> new PostNotFoundException(postId, "Post with given id does not exist"));
-        removePostFromFavouritesPort.remove(postId, userId);
+        removePostFromFavouritesPort.removeFromFavourites(postId, userId);
     }
 }
