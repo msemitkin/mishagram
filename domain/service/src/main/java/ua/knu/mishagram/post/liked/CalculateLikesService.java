@@ -1,7 +1,6 @@
 package ua.knu.mishagram.post.liked;
 
-import ua.knu.mishagram.post.CalculateLikesPort;
-import ua.knu.mishagram.post.LoadPostPort;
+import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
 
 public class CalculateLikesService implements CalculateLikesUseCase {

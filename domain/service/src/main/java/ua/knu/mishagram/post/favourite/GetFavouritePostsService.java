@@ -2,8 +2,7 @@ package ua.knu.mishagram.post.favourite;
 
 import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.Post;
-import ua.knu.mishagram.post.LoadFavouritePostsPort;
-import ua.knu.mishagram.post.LoadPostPort;
+import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.favourites.GetUserFavouritePostsUseCase;
 
 import java.util.Collections;

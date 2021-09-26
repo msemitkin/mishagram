@@ -1,4 +1,4 @@
-package ua.knu.mishagram.post;
+package ua.knu.mishagram.post.get;
 
 import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.Post;

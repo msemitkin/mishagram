@@ -1,7 +1,7 @@
 package ua.knu.mishagram.post.delete;
 
 import ua.knu.mishagram.Post;
-import ua.knu.mishagram.post.LoadPostPort;
+import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.post.UpdatePostPort;
 

@@ -1,7 +1,6 @@
 package ua.knu.mishagram.post.liked;
 
-import ua.knu.mishagram.post.LikePostPort;
-import ua.knu.mishagram.post.LoadPostPort;
+import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.user.UserNotFoundException;

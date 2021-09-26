@@ -1,7 +1,6 @@
 package ua.knu.mishagram.post.favourite;
 
-import ua.knu.mishagram.post.AddPostToFavouritesPort;
-import ua.knu.mishagram.post.LoadPostPort;
+import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.post.favourites.AddToFavouritesUseCase;
 import ua.knu.mishagram.user.LoadUserPort;

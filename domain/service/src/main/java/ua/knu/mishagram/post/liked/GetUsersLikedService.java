@@ -2,8 +2,7 @@ package ua.knu.mishagram.post.liked;
 
 import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.User;
-import ua.knu.mishagram.post.LoadUsersLikedPostPort;
-import ua.knu.mishagram.post.LoadPostPort;
+import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.user.LoadUserPort;
 

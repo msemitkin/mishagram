@@ -1,7 +1,6 @@
 package ua.knu.mishagram.post.get;
 
 import ua.knu.mishagram.Post;
-import ua.knu.mishagram.post.LoadUserPostsAfterDateTimePort;
 import ua.knu.mishagram.subscription.LoadUserSubscriptionsPort;
 
 import java.time.LocalDateTime;

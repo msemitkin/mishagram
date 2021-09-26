@@ -2,7 +2,6 @@ package ua.knu.mishagram.post.get;
 
 import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.Post;
-import ua.knu.mishagram.post.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.user.UserNotFoundException;
