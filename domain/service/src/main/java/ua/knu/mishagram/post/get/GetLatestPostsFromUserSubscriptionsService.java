@@ -1,8 +1,8 @@
 package ua.knu.mishagram.post.get;
 
 import ua.knu.mishagram.Post;
-import ua.knu.mishagram.post.GetUserPostsAfterDateTimePort;
-import ua.knu.mishagram.subscription.GetUserSubscriptionsPort;
+import ua.knu.mishagram.post.LoadUserPostsAfterDateTimePort;
+import ua.knu.mishagram.subscription.LoadUserSubscriptionsPort;
 
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -10,21 +10,21 @@ import java.util.List;
 
 public class GetLatestPostsFromUserSubscriptionsService implements GetLatestPostsFromSubscriptionsUseCase {
 
-    private final GetUserSubscriptionsPort getUserSubscriptionsPort;
-    private final GetUserPostsAfterDateTimePort getUserPostsAfterDateTimePort;
+    private final LoadUserSubscriptionsPort loadUserSubscriptionsPort;
+    private final LoadUserPostsAfterDateTimePort loadUserPostsAfterDateTimePort;
 
     public GetLatestPostsFromUserSubscriptionsService(
-        GetUserSubscriptionsPort getUserSubscriptionsPort,
-        GetUserPostsAfterDateTimePort getUserPostsAfterDateTimePort
+        LoadUserSubscriptionsPort loadUserSubscriptionsPort,
+        LoadUserPostsAfterDateTimePort loadUserPostsAfterDateTimePort
     ) {
-        this.getUserSubscriptionsPort = getUserSubscriptionsPort;
-        this.getUserPostsAfterDateTimePort = getUserPostsAfterDateTimePort;
+        this.loadUserSubscriptionsPort = loadUserSubscriptionsPort;
+        this.loadUserPostsAfterDateTimePort = loadUserPostsAfterDateTimePort;
     }
 
     @Override
     public List<Post> getAllFromUserSubscriptionsInPeriod(int userId, Period period) {
         LocalDateTime loadFromDateTime = LocalDateTime.now().minus(period);
-        List<Integer> subscriptions = getUserSubscriptionsPort.getAllByUserId(userId);
-        return getUserPostsAfterDateTimePort.getAll(subscriptions, loadFromDateTime);
+        List<Integer> subscriptions = loadUserSubscriptionsPort.getAllByUserId(userId);
+        return loadUserPostsAfterDateTimePort.getAll(subscriptions, loadFromDateTime);
     }
 }

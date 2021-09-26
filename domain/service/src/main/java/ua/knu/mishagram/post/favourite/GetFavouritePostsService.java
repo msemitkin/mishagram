@@ -24,7 +24,7 @@ public class GetFavouritePostsService implements GetUserFavouritePostsUseCase {
 
     @Override
     public @NotNull List<Post> getUserFavouritePosts(int userId) {
-        List<Integer> postIds = loadFavouritePostsPort.getAll(userId);
+        List<Integer> postIds = loadFavouritePostsPort.getAllByUserId(userId);
         if (postIds.isEmpty()) {
             return Collections.emptyList();
         }

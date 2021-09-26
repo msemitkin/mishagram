@@ -7,5 +7,5 @@ import java.util.List;
 public interface LoadFavouritePostsPort {
 
     @NotNull
-    List<Integer> getAll(int userId);
+    List<Integer> getAllByUserId(int userId);
 }

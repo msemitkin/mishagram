@@ -2,7 +2,7 @@ package ua.knu.mishagram.post;
 
 import java.util.List;
 
-public interface GetUsersLikedPostPort {
+public interface LoadUsersLikedPostPort {
 
     List<Integer> getAll(int postId);
 

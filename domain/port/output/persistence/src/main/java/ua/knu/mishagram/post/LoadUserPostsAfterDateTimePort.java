@@ -6,7 +6,7 @@ import ua.knu.mishagram.Post;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface GetUserPostsAfterDateTimePort {
+public interface LoadUserPostsAfterDateTimePort {
 
     @NotNull
     List<Post> getAll(@NotNull List<Integer> userIds, @NotNull LocalDateTime since);
