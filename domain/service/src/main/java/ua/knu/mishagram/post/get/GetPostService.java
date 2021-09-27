@@ -3,21 +3,21 @@ package ua.knu.mishagram.post.get;
 import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.PostNotFoundException;
-import ua.knu.mishagram.user.LoadUserPort;
+import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.user.UserNotFoundException;
 
 import java.util.List;
 
 public class GetPostService implements GetPostUseCase {
 
-    private final LoadUserPort loadUserPort;
+    private final UserExistsPort userExistsPort;
     private final LoadPostPort loadPostPort;
 
     public GetPostService(
-        LoadUserPort loadUserPort,
+        UserExistsPort userExistsPort,
         LoadPostPort loadPostPort
     ) {
-        this.loadUserPort = loadUserPort;
+        this.userExistsPort = userExistsPort;
         this.loadPostPort = loadPostPort;
     }
 
@@ -28,9 +28,10 @@ public class GetPostService implements GetPostUseCase {
     }
 
     @Override
-    public @NotNull List<Post> getByOwnerId(int ownerId) {
-        loadUserPort.loadById(ownerId)
-            .orElseThrow(() -> new UserNotFoundException(ownerId, "User with given id does not exist"));
+    public @NotNull List<Post> getAllByOwnerId(int ownerId) {
+        if (!userExistsPort.userExists(ownerId)) {
+            throw new UserNotFoundException(ownerId, "User with given id does not exist");
+        }
         return loadPostPort.loadAllByUserId(ownerId);
     }
 

@@ -20,7 +20,7 @@ public class DeletePostService implements DeletePostUseCase {
 
 
     @Override
-    public void deletePostUseCase(int postId) {
+    public void deletePostById(int postId) {
         Post post = loadPostPort.loadById(postId)
             .orElseThrow(() -> new PostNotFoundException(postId, "Post with given id does not exist"));
 

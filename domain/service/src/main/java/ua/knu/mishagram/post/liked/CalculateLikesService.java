@@ -1,25 +1,26 @@
 package ua.knu.mishagram.post.liked;
 
-import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
+import ua.knu.mishagram.post.get.PostExistsPort;
 
 public class CalculateLikesService implements CalculateLikesUseCase {
 
-    private final LoadPostPort loadPostPort;
+    private final PostExistsPort postExistsPort;
     private final CalculateLikesPort calculateLikesPort;
 
     public CalculateLikesService(
-        LoadPostPort loadPostPort,
+        PostExistsPort postExistsPort,
         CalculateLikesPort calculateLikesPort
     ) {
-        this.loadPostPort = loadPostPort;
+        this.postExistsPort = postExistsPort;
         this.calculateLikesPort = calculateLikesPort;
     }
 
     @Override
     public int calculateLikes(int postId) {
-        loadPostPort.loadById(postId)
-            .orElseThrow(() -> new PostNotFoundException(postId, "Post with given id does not exist"));
+        if (!postExistsPort.postExists(postId)) {
+            throw new PostNotFoundException(postId, "Post with given id does not exist");
+        }
         return calculateLikesPort.calculateLikes(postId);
     }
 }

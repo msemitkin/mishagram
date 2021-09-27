@@ -1,33 +1,34 @@
 package ua.knu.mishagram.post.liked;
 
-import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
-import ua.knu.mishagram.user.LoadUserPort;
+import ua.knu.mishagram.post.get.PostExistsPort;
+import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.user.UserNotFoundException;
 
 public class LikePostService implements LikePostUseCase {
 
-    private final LoadPostPort loadPostPort;
-    private final LoadUserPort loadUserPort;
+    private final PostExistsPort postExistsPort;
+    private final UserExistsPort userExistsPort;
     private final LikePostPort likePostPort;
 
     public LikePostService(
-        LoadPostPort loadPostPort,
-        LoadUserPort loadUserPort,
+        PostExistsPort postExistsPort,
+        UserExistsPort userExistsPort,
         LikePostPort likePostPort
     ) {
-        this.loadPostPort = loadPostPort;
-        this.loadUserPort = loadUserPort;
+        this.postExistsPort = postExistsPort;
+        this.userExistsPort = userExistsPort;
         this.likePostPort = likePostPort;
     }
 
     @Override
     public void likePost(int postId, int userId) {
-        loadPostPort.loadById(postId)
-            .orElseThrow(() -> new PostNotFoundException(postId, "Post with given id does not exist"));
-        loadUserPort.loadById(userId)
-            .orElseThrow(() -> new UserNotFoundException(postId, "User with given id does not exist"));
-
+        if (!postExistsPort.postExists(postId)) {
+            throw new PostNotFoundException(postId, "Post with given id does not exist");
+        }
+        if (!userExistsPort.userExists(userId)) {
+            throw new UserNotFoundException(postId, "User with given id does not exist");
+        }
         likePostPort.likePost(postId, userId);
     }
 }

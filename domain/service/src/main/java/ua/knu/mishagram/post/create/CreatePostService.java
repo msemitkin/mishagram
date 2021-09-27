@@ -4,22 +4,22 @@ import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.SavePostPort;
 import ua.knu.mishagram.time.DateTimeProvider;
-import ua.knu.mishagram.user.LoadUserPort;
+import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.user.UserNotFoundException;
 
 public class CreatePostService implements CreatePostUseCase {
 
     private final SavePostPort savePostPort;
-    private final LoadUserPort loadUserPort;
+    private final UserExistsPort userExistsPort;
     private final DateTimeProvider dateTimeProvider;
 
     public CreatePostService(
         SavePostPort savePostPort,
-        LoadUserPort loadUserPort,
+        UserExistsPort userExistsPort,
         DateTimeProvider dateTimeProvider
     ) {
         this.savePostPort = savePostPort;
-        this.loadUserPort = loadUserPort;
+        this.userExistsPort = userExistsPort;
         this.dateTimeProvider = dateTimeProvider;
     }
 
@@ -27,7 +27,7 @@ public class CreatePostService implements CreatePostUseCase {
     public void createPost(@NotNull CreatePostCommand createPostCommand) {
         Post post = mapToPost(createPostCommand);
         int ownerId = post.getOwnerId();
-        if (loadUserPort.loadById(ownerId).isEmpty()) {
+        if (!userExistsPort.userExists(ownerId)) {
             throw new UserNotFoundException(ownerId, "User with given id does not exist");
         }
         savePostPort.save(post);

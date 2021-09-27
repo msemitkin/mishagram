@@ -1,0 +1,58 @@
+package ua.knu.mishagram.post.delete;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import ua.knu.mishagram.Post;
+import ua.knu.mishagram.post.PostNotFoundException;
+import ua.knu.mishagram.post.UpdatePostPort;
+import ua.knu.mishagram.post.get.LoadPostPort;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static ua.knu.mishagram.test.util.TestUtils.is;
+
+@ExtendWith(MockitoExtension.class)
+class DeletePostServiceTest {
+
+    private static final int POST_ID = 777;
+    private static final int OWNER_ID = 888;
+    private static final LocalDateTime CREATE_DATE_TIME = LocalDateTime.of(1010, 10, 10, 10, 10);
+
+    @Mock
+    private LoadPostPort loadPostPort;
+    @Mock
+    private UpdatePostPort updatePostPort;
+
+    @InjectMocks
+    private DeletePostService deletePostService;
+
+    @Test
+    void deletePostById_shouldThrowException_whenPostDoesNotExist() {
+        when(loadPostPort.loadById(POST_ID))
+            .thenReturn(Optional.empty());
+
+        PostNotFoundException exception = Assertions.assertThrows(
+            PostNotFoundException.class,
+            () -> deletePostService.deletePostById(POST_ID)
+        );
+        Assertions.assertEquals(POST_ID, exception.getId());
+
+    }
+
+    @Test
+    void deletePostById_successFlow() {
+        when(loadPostPort.loadById(POST_ID))
+            .thenReturn(Optional.of(new Post(POST_ID, OWNER_ID, "some text", CREATE_DATE_TIME, false)));
+
+        deletePostService.deletePostById(POST_ID);
+
+        verify(updatePostPort).update(is(new Post(POST_ID, OWNER_ID, "some text", CREATE_DATE_TIME, true)));
+    }
+}

@@ -11,6 +11,6 @@ public interface GetPostUseCase {
     Post getById(int id);
 
     @NotNull
-    List<Post> getByOwnerId(int ownerId);
+    List<Post> getAllByOwnerId(int ownerId);
 
 }
