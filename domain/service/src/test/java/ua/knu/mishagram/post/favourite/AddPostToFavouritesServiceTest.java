@@ -56,8 +56,8 @@ class AddPostToFavouritesServiceTest {
 
     @Test
     void addPostToFavourites_successFlow() {
-        when(existsPort.userExists(USER_ID)).thenReturn(false);
-        when(postExistsPort.postExists(POST_ID)).thenReturn(false);
+        when(existsPort.userExists(USER_ID)).thenReturn(true);
+        when(postExistsPort.postExists(POST_ID)).thenReturn(true);
 
         addPostToFavouritesService.addPostToFavourites(POST_ID, USER_ID);
 
