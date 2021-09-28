@@ -1,10 +1,8 @@
-
 subprojects {
     apply plugin: 'java'
 
-    group = 'ua.knu.mishagram'
     version = '0.0.1-SNAPSHOT'
-    sourceCompatibility = '11'
+    sourceCompatibility = '15'
 
     repositories {
         mavenCentral()
@@ -16,7 +14,7 @@ subprojects {
 }
 
 ext {
-    spring_framework_version='2.5.5'
-    postgresql_driver_version='42.2.24'
-    flyway_version='5.0.3'
+    spring_framework_version = '2.5.5'
+    postgresql_driver_version = '42.2.24'
+    flyway_version = '5.0.3'
 }
