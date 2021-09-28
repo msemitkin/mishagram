@@ -1,6 +1,4 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.5'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
@@ -20,4 +18,10 @@ subprojects {
         apply plugin: 'java'
         implementation 'org.jetbrains:annotations:16.0.1'
     }
+}
+
+ext {
+    spring_framework_version='2.5.5'
+    postgresql_driver_version='42.2.24'
+    flyway_version='5.0.3'
 }
