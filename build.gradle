@@ -1,21 +1,16 @@
-plugins {
-    id 'java'
-}
 
-group = 'ua.knu.mishagram'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-repositories {
-    mavenCentral()
-}
 subprojects {
+    apply plugin: 'java'
+
+    group = 'ua.knu.mishagram'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
+
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        apply plugin: 'java'
         implementation 'org.jetbrains:annotations:16.0.1'
     }
 }
