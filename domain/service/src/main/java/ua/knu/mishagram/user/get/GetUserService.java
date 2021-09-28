@@ -17,6 +17,7 @@ public class GetUserService implements GetUserUseCase {
     @NotNull
     public User getById(int id) {
         return loadUserPort.loadById(id)
+            .filter(u -> !u.isDeleted())
             .orElseThrow(() -> new UserNotFoundException(id, "User with given id does not exist"));
     }
 

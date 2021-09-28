@@ -22,6 +22,9 @@ public class DeleteUserService implements DeleteUserUseCase {
     public void deleteUser(int userId) {
         User user = loadUserPort.loadById(userId)
             .orElseThrow(() -> new UserNotFoundException(userId, "User with given id does not exist"));
+        if (user.isDeleted()) {
+            return;
+        }
         User deletedUser = new User(user.getId(), user.getEmail(), true, user.getRegisteredDateTime());
         updateUserPort.update(deletedUser);
     }
