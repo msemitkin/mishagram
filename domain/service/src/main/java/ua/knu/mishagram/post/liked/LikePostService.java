@@ -27,7 +27,7 @@ public class LikePostService implements LikePostUseCase {
             throw new PostNotFoundException(postId, "Post with given id does not exist");
         }
         if (!userExistsPort.userExists(userId)) {
-            throw new UserNotFoundException(postId, "User with given id does not exist");
+            throw new UserNotFoundException("User with given id does not exist");
         }
         likePostPort.likePost(postId, userId);
     }

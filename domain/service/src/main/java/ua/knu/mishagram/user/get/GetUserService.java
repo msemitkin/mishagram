@@ -1,12 +1,14 @@
 package ua.knu.mishagram.user.get;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.user.UserNotFoundException;
 
 import static java.util.function.Predicate.not;
 
+@Service
 public class GetUserService implements GetUserUseCase {
 
     private final LoadUserPort loadUserPort;

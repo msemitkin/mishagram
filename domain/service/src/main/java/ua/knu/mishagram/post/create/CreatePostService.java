@@ -1,12 +1,14 @@
 package ua.knu.mishagram.post.create;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.SavePostPort;
 import ua.knu.mishagram.time.DateTimeProvider;
 import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.user.UserNotFoundException;
 
+@Service
 public class CreatePostService implements CreatePostUseCase {
 
     private final SavePostPort savePostPort;
