@@ -1,11 +1,13 @@
 package ua.knu.mishagram.post.favourite;
 
+import org.springframework.stereotype.Service;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.post.favourites.RemovePostFromFavouritesUseCase;
 import ua.knu.mishagram.post.get.PostExistsPort;
 import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.user.UserNotFoundException;
 
+@Service
 public class RemovePostFromFavouritesService implements RemovePostFromFavouritesUseCase {
 
     private final RemovePostFromFavouritesPort removePostFromFavouritesPort;

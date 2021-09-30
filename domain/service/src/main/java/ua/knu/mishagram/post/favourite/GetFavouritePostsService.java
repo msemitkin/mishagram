@@ -1,6 +1,7 @@
 package ua.knu.mishagram.post.favourite;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.favourites.GetUserFavouritePostsUseCase;
@@ -8,6 +9,7 @@ import ua.knu.mishagram.post.favourites.GetUserFavouritePostsUseCase;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class GetFavouritePostsService implements GetUserFavouritePostsUseCase {
 
     private final LoadFavouritePostsPort loadFavouritePostsPort;

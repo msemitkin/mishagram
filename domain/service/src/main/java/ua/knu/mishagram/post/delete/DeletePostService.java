@@ -1,10 +1,12 @@
 package ua.knu.mishagram.post.delete;
 
+import org.springframework.stereotype.Service;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.get.LoadPostPort;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.post.UpdatePostPort;
 
+@Service
 public class DeletePostService implements DeletePostUseCase {
 
     private final LoadPostPort loadPostPort;

@@ -1,7 +1,9 @@
 package ua.knu.mishagram.user.register;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EmailAlreadyUsedException extends RuntimeException {
 
     @NotNull
