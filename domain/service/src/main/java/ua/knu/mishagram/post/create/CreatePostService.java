@@ -28,7 +28,7 @@ public class CreatePostService implements CreatePostUseCase {
         Post post = mapToPost(createPostCommand);
         int ownerId = post.getOwnerId();
         if (!userExistsPort.userExists(ownerId)) {
-            throw new UserNotFoundException(ownerId, "User with given id does not exist");
+            throw new UserNotFoundException("User with given id does not exist");
         }
         savePostPort.save(post);
     }

@@ -30,7 +30,7 @@ public class GetPostService implements GetPostUseCase {
     @Override
     public @NotNull List<Post> getAllByOwnerId(int ownerId) {
         if (!userExistsPort.userExists(ownerId)) {
-            throw new UserNotFoundException(ownerId, "User with given id does not exist");
+            throw new UserNotFoundException("User with given id does not exist");
         }
         return loadPostPort.loadAllByUserId(ownerId);
     }
