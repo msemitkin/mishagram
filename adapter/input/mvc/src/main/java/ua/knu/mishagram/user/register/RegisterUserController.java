@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Objects;
+
 @Controller
 public class RegisterUserController {
 
@@ -23,6 +25,9 @@ public class RegisterUserController {
 
     @PostMapping("/users")
     public String saveUser(@ModelAttribute("user") RegisterUserRequest registerUserRequest) {
+        if (!Objects.equals(registerUserRequest.getPassword(), registerUserRequest.getPasswordConfirmation())) {
+            throw new ValidationException("Passwords do not match");
+        }
         RegisterUserCommand registerUserCommand = new RegisterUserCommand(
             registerUserRequest.getEmail(),
             registerUserRequest.getPassword()
