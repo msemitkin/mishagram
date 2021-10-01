@@ -44,16 +44,16 @@ class DeleteUserServiceTest {
 
     @Test
     void deleteUser_shouldUpdateUser_whenUserExists() {
-        when(loadUserPort.loadById(USER_ID)).thenReturn(Optional.of(new User(USER_ID, "email", false, TEST_DATE)));
+        when(loadUserPort.loadById(USER_ID)).thenReturn(Optional.of(new User(USER_ID, "email", false, TEST_DATE, "pass")));
 
         deleteUserService.deleteUser(USER_ID);
 
-        verify(updateUserPort).update(is(new User(USER_ID, "email", true, TEST_DATE)));
+        verify(updateUserPort).update(is(new User(USER_ID, "email", true, TEST_DATE, "pass")));
     }
 
     @Test
     void deleteUser_shouldDoNothing_whenUserDeleted() {
-        when(loadUserPort.loadById(USER_ID)).thenReturn(Optional.of(new User(USER_ID, "email", true, TEST_DATE)));
+        when(loadUserPort.loadById(USER_ID)).thenReturn(Optional.of(new User(USER_ID, "email", true, TEST_DATE, "pass")));
 
         deleteUserService.deleteUser(USER_ID);
 

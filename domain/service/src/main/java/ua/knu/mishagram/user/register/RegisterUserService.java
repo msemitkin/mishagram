@@ -37,6 +37,12 @@ public class RegisterUserService implements RegisterUserUseCase {
     }
 
     private User mapToUser(RegisterUserCommand registerUserCommand) {
-        return new User(0, registerUserCommand.getEmail(), false, dateTimeProvider.now());
+        return new User(
+            0,
+            registerUserCommand.getEmail(),
+            false,
+            dateTimeProvider.now(),
+            registerUserCommand.getPassword()
+        );
     }
 }

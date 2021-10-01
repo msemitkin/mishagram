@@ -37,7 +37,7 @@ class GetUserServiceTest {
 
     @Test
     void getById_shouldThrowException_whenUserIsDeleted() {
-        User user = new User(USER_ID, "email", true, TEST_DATE);
+        User user = new User(USER_ID, "email", true, TEST_DATE, "pass");
         when(loadUserPort.loadById(USER_ID)).thenReturn(Optional.of(user));
 
         Assertions.assertThrows(UserNotFoundException.class, () -> getUserService.getById(USER_ID));
@@ -45,7 +45,7 @@ class GetUserServiceTest {
 
     @Test
     void getById_successFlow() {
-        User user = new User(USER_ID, "email", false, TEST_DATE);
+        User user = new User(USER_ID, "email", false, TEST_DATE, "pass");
         when(loadUserPort.loadById(USER_ID)).thenReturn(Optional.of(user));
 
         User actualUser = getUserService.getById(USER_ID);
