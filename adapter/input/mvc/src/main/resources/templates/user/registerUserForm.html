@@ -52,6 +52,23 @@
                        autofocus>
             </div>
         </div>
+        <div class="alert alert-danger col-sm-10" role="alert" th:if="${#fields.hasErrors('passwordConfirmation')}">
+            <p th:each="error: ${#fields.errors('passwordConfirmation')}"
+               th:text="${error}"
+            >Email Error</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="passwordConfirmation">Password confirmation:</label>
+            <div class="col-sm-10">
+                <input class="form-control"
+                       type="text"
+                       id="passwordConfirmation"
+                       placeholder="Enter password confirmation"
+                       th:field="*{passwordConfirmation}"
+                       required
+                       autofocus>
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-info">Save</button>
