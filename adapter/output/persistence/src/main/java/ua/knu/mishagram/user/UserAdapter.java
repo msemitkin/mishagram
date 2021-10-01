@@ -18,12 +18,12 @@ public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, 
 
     @Override
     public @NotNull Optional<User> loadById(int userId) {
-        return Optional.ofNullable(userRepository.getById(userId));
+        return userRepository.getById(userId);
     }
 
     @Override
     public @NotNull Optional<User> loadByEmail(@NotNull String email) {
-        return Optional.ofNullable(userRepository.getByEmail(email));
+        return userRepository.getByEmail(email);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, 
 
     @Override
     public boolean userExists(int userId) {
-        return false;
+        return userRepository.userExists(userId);
     }
 }

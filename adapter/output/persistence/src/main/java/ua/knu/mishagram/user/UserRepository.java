@@ -10,6 +10,7 @@ import ua.knu.mishagram.User;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class UserRepository {
@@ -20,20 +21,20 @@ public class UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    User getById(int id) {
-        return jdbcTemplate.queryForObject(
+    Optional<User> getById(int id) {
+        return jdbcTemplate.queryForStream(
             "SELECT * from \"user\" where id = :id",
             Map.of("id", id),
             getUserRowMapper()
-        );
+        ).findAny();
     }
 
-    User getByEmail(String email) {
-        return jdbcTemplate.queryForObject(
+    Optional<User> getByEmail(String email) {
+        return jdbcTemplate.queryForStream(
             "SELECT * from \"user\" where email = :email",
             Map.of("email", email),
             getUserRowMapper()
-        );
+        ).findAny();
     }
 
     List<User> getByIds(List<Integer> ids) {
@@ -79,10 +80,10 @@ public class UserRepository {
         );
     }
 
-    public boolean userExists(int userId) {
+    boolean userExists(int userId) {
         return Boolean.TRUE.equals(
             jdbcTemplate.queryForObject(
-                "SELECT FROM \"user\" WHERE id = :id",
+                "SELECT EXISTS(SELECT * FROM \"user\" WHERE id = :id)",
                 Map.of("id", userId),
                 Boolean.class
             )
