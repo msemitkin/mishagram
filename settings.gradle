@@ -2,6 +2,7 @@ rootProject.name = 'board'
 
 include ':application'
 include ':adapter:output:persistence'
+include ':adapter:input:mvc'
 include ':domain:port:input'
 include ':domain:port:output:persistence'
 include ':domain:model'

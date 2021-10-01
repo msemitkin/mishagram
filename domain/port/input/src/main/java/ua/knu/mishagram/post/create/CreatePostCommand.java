@@ -3,8 +3,7 @@ package ua.knu.mishagram.post.create;
 import org.jetbrains.annotations.NotNull;
 
 public class CreatePostCommand {
-    //TODO add photos
-    //TODO add category
+    //TODO add photo
     private final int ownerId;
     @NotNull
     private final String description;

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: main-fragment(
+       ~{:: title},
+       ~{:: #content}
+       )}">
+<head>
+    <meta charset="UTF-8">
+    <title>HERE MUST BE TITLE</title>
+</head>
+<body>
+<div id="content" style="width: 600px; margin: auto; margin-top: 60px">
+    HERE MUST BE SOME CONTENT
+</div>
+</body>
+</html>
