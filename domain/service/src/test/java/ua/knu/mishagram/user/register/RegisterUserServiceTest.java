@@ -36,7 +36,7 @@ class RegisterUserServiceTest {
     @Test
     void registerUser_shouldThrowException_whenEmailIsAlreadyUsed() {
         when(loadUserPort.loadByEmail("some email"))
-            .thenReturn(Optional.of(new User(55, "some email", false, TEST_DATE)));
+            .thenReturn(Optional.of(new User(55, "some email", false, TEST_DATE, "pass")));
 
         RegisterUserCommand registerUserCommand = new RegisterUserCommand("some email", "pass");
         Assertions.assertThrows(EmailAlreadyUsedException.class, () -> registerUserService.registerUser(registerUserCommand));
@@ -50,7 +50,7 @@ class RegisterUserServiceTest {
         RegisterUserCommand registerUserCommand = new RegisterUserCommand("some email", "pass");
         registerUserService.registerUser(registerUserCommand);
 
-        User expectedUser = new User(0, "some email", false, TEST_DATE);
+        User expectedUser = new User(0, "some email", false, TEST_DATE, "pass");
         verify(saveUserPort).saveUser(is(expectedUser));
     }
 }

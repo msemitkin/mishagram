@@ -54,8 +54,8 @@ class GetUsersLikedServiceTest {
     void getUsersLiked_successFlow() {
         List<Integer> userIds = List.of(55, 66);
         List<User> users = List.of(
-            new User(55, "email55", false, TEST_DATE),
-            new User(66, "email66", false, TEST_DATE)
+            new User(55, "email55", false, TEST_DATE, "some password"),
+            new User(66, "email66", false, TEST_DATE, "some password")
         );
         when(postExistsPort.postExists(POST_ID)).thenReturn(true);
         when(loadUsersLikedPostPort.getAllUsersLiked(POST_ID)).thenReturn(userIds);

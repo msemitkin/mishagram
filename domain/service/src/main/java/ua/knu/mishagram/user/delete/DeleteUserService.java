@@ -27,7 +27,13 @@ public class DeleteUserService implements DeleteUserUseCase {
         if (user.isDeleted()) {
             return;
         }
-        User deletedUser = new User(user.getId(), user.getEmail(), true, user.getRegisteredDateTime());
+        User deletedUser = new User(
+            user.getId(),
+            user.getEmail(),
+            true,
+            user.getRegisteredDateTime(),
+            user.getPasswordHash()
+        );
         updateUserPort.update(deletedUser);
     }
 }

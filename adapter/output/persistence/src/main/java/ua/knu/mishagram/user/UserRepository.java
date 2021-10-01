@@ -50,12 +50,13 @@ public class UserRepository {
         Map<String, Object> parameters = Map.of(
             "email", user.getEmail(),
             "registered_date_time", Timestamp.valueOf(user.getRegisteredDateTime()),
-            "is_deleted", user.isDeleted()
+            "is_deleted", user.isDeleted(),
+            "password_hash", user.getPasswordHash()
         );
         jdbcTemplate.update(
             """
-                INSERT INTO "user" (email, registered_date_time, is_deleted)
-                values (:email, :registered_date_time, :is_deleted)
+                INSERT INTO "user" (email, registered_date_time, is_deleted, password_hash)
+                values (:email, :registered_date_time, :is_deleted, :password_hash)
                 """,
             parameters
         );
@@ -66,14 +67,16 @@ public class UserRepository {
             "id", user.getId(),
             "email", user.getEmail(),
             "registered_date_time", Timestamp.valueOf(user.getRegisteredDateTime()),
-            "is_deleted", user.isDeleted()
+            "is_deleted", user.isDeleted(),
+            "password_hash", user.getPasswordHash()
         );
         jdbcTemplate.update(
             """
                 UPDATE "user" SET
                 email = :email,
                 registered_date_time = :registered_date_time,
-                is_deleted = :is_deleted
+                is_deleted = :is_deleted,
+                password_hash = :password_hash
                 WHERE id = :id
                 """,
             parameters
@@ -96,7 +99,8 @@ public class UserRepository {
             resultSet.getInt("id"),
             resultSet.getString("email"),
             resultSet.getBoolean("is_deleted"),
-            resultSet.getTimestamp("registered_date_time").toLocalDateTime()
+            resultSet.getTimestamp("registered_date_time").toLocalDateTime(),
+            resultSet.getString("password_hash")
         );
     }
 }

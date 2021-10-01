@@ -11,17 +11,21 @@ public class User {
     private final boolean isDeleted;
     @NotNull
     private final LocalDateTime registeredDateTime;
+    @NotNull
+    private final String passwordHash;
 
     public User(
         int id,
         @NotNull String email,
         boolean isDeleted,
-        @NotNull LocalDateTime registeredDateTime
+        @NotNull LocalDateTime registeredDateTime,
+        @NotNull String passwordHash
     ) {
         this.id = id;
         this.email = email;
         this.isDeleted = isDeleted;
         this.registeredDateTime = registeredDateTime;
+        this.passwordHash = passwordHash;
     }
 
     public int getId() {
@@ -40,5 +44,10 @@ public class User {
     @NotNull
     public LocalDateTime getRegisteredDateTime() {
         return registeredDateTime;
+    }
+
+    @NotNull
+    public String getPasswordHash() {
+        return passwordHash;
     }
 }
