@@ -38,11 +38,10 @@ class DeletePostServiceTest {
         when(loadPostPort.loadById(POST_ID))
             .thenReturn(Optional.empty());
 
-        PostNotFoundException exception = Assertions.assertThrows(
+        Assertions.assertThrows(
             PostNotFoundException.class,
             () -> deletePostService.deletePostById(POST_ID)
         );
-        Assertions.assertEquals(POST_ID, exception.getId());
 
     }
 

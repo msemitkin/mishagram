@@ -4,12 +4,15 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Repository;
 import ua.knu.mishagram.User;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+@Repository
 public class UserRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -18,20 +21,20 @@ public class UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    User getById(int id) {
-        return jdbcTemplate.queryForObject(
+    Optional<User> getById(int id) {
+        return jdbcTemplate.queryForStream(
             "SELECT * from \"user\" where id = :id",
             Map.of("id", id),
             getUserRowMapper()
-        );
+        ).findAny();
     }
 
-    User getByEmail(String email) {
-        return jdbcTemplate.queryForObject(
+    Optional<User> getByEmail(String email) {
+        return jdbcTemplate.queryForStream(
             "SELECT * from \"user\" where email = :email",
             Map.of("email", email),
             getUserRowMapper()
-        );
+        ).findAny();
     }
 
     List<User> getByIds(List<Integer> ids) {
@@ -50,7 +53,7 @@ public class UserRepository {
             "is_deleted", user.isDeleted()
         );
         jdbcTemplate.update(
-                """
+            """
                 INSERT INTO "user" (email, registered_date_time, is_deleted)
                 values (:email, :registered_date_time, :is_deleted)
                 """,
@@ -75,6 +78,17 @@ public class UserRepository {
                 """,
             parameters
         );
+    }
+
+    boolean userExists(int userId) {
+        return Boolean.TRUE.equals(
+            jdbcTemplate.queryForObject(
+                "SELECT EXISTS(SELECT * FROM \"user\" WHERE id = :id)",
+                Map.of("id", userId),
+                Boolean.class
+            )
+        );
+
     }
 
     private RowMapper<User> getUserRowMapper() {

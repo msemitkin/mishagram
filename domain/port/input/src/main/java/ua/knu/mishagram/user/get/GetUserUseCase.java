@@ -8,4 +8,7 @@ public interface GetUserUseCase {
     @NotNull
     User getById(int id);
 
+    @NotNull
+    User getByEmail(String email);
+
 }
