@@ -9,6 +9,6 @@ dependencies {
     implementation "org.springframework:spring-jdbc:${spring_framework_version}"
     implementation "org.springframework.boot:spring-boot-starter-jdbc:${spring_framework_version}"
 
-    implementation "org.flywaydb:flyway-core:${flyway_version}"
+    implementation 'org.flywaydb:flyway-core:7.5.3'
     runtimeOnly "org.postgresql:postgresql:${postgresql_driver_version}"
 }
