@@ -6,8 +6,16 @@ plugins {
 dependencies {
     implementation project(":domain:model")
     implementation project(":domain:port:input")
+    implementation project(":domain:port:output:persistence")
+    implementation project(":domain:service")
+    implementation project(":adapter:output:persistence")
 
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${spring_framework_version}"
     implementation "org.springframework.boot:spring-boot-starter-web:${spring_framework_version}"
+}
+
+//TODO remove this quick fix
+tasks.named("bootJar") {
+    duplicatesStrategy = 'include'
 }
 
