@@ -17,7 +17,7 @@ public class PostExistsAdapter extends JdbcRepository implements PostExistsPort 
     public boolean postExists(int postId) {
         return Boolean.TRUE.equals(
             jdbcTemplate.queryForObject(
-                "SELECT FROM post WHERE id = :id",
+                "SELECT EXISTS(SELECT * FROM post WHERE id = :id)",
                 Map.of("id", postId),
                 Boolean.class
             )
