@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 import ua.knu.mishagram.JdbcRepository;
 import ua.knu.mishagram.Post;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Repository
 public class GetPostAdapter extends JdbcRepository implements LoadPostPort, LoadUserPostsAfterDateTimePort {
 
     public GetPostAdapter(NamedParameterJdbcTemplate jdbcTemplate) {

@@ -34,11 +34,10 @@ class RemovePostFromFavouritesServiceTest {
     void removeFromFavourites_shouldThrowUserNotFoundException_whenUserNotExists() {
         when(userExistsPort.userExists(USER_ID)).thenReturn(false);
 
-        UserNotFoundException exception = Assertions.assertThrows(
+        Assertions.assertThrows(
             UserNotFoundException.class,
             () -> removePostFromFavouritesService.removeFromFavourites(POST_ID, USER_ID)
         );
-        Assertions.assertEquals(USER_ID, exception.getId());
     }
 
     @Test
@@ -46,11 +45,10 @@ class RemovePostFromFavouritesServiceTest {
         when(userExistsPort.userExists(USER_ID)).thenReturn(true);
         when(postExistsPort.postExists(POST_ID)).thenReturn(false);
 
-        PostNotFoundException exception = Assertions.assertThrows(
+        Assertions.assertThrows(
             PostNotFoundException.class,
             () -> removePostFromFavouritesService.removeFromFavourites(POST_ID, USER_ID)
         );
-        Assertions.assertEquals(POST_ID, exception.getId());
     }
 
     @Test

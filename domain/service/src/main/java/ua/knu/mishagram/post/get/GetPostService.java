@@ -1,6 +1,7 @@
 package ua.knu.mishagram.post.get;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.user.UserExistsPort;
@@ -8,6 +9,7 @@ import ua.knu.mishagram.user.UserNotFoundException;
 
 import java.util.List;
 
+@Service
 public class GetPostService implements GetPostUseCase {
 
     private final UserExistsPort userExistsPort;
@@ -30,7 +32,7 @@ public class GetPostService implements GetPostUseCase {
     @Override
     public @NotNull List<Post> getAllByOwnerId(int ownerId) {
         if (!userExistsPort.userExists(ownerId)) {
-            throw new UserNotFoundException(ownerId, "User with given id does not exist");
+            throw new UserNotFoundException("User with given id does not exist");
         }
         return loadPostPort.loadAllByUserId(ownerId);
     }

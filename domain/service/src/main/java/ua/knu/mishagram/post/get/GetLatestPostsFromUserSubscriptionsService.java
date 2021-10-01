@@ -1,5 +1,6 @@
 package ua.knu.mishagram.post.get;
 
+import org.springframework.stereotype.Service;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.subscription.LoadUserSubscriptionsPort;
 import ua.knu.mishagram.time.DateTimeProvider;
@@ -9,6 +10,7 @@ import java.time.Period;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class GetLatestPostsFromUserSubscriptionsService implements GetLatestPostsFromSubscriptionsUseCase {
 
     private final LoadUserSubscriptionsPort loadUserSubscriptionsPort;

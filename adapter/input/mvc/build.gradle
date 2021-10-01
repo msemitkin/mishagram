@@ -1,13 +1,7 @@
-plugins {
-    id 'org.springframework.boot' version '2.5.5'
-}
-
-
 dependencies {
-    implementation project(":domain:model")
     implementation project(":domain:port:input")
+    implementation project(":domain:model")
 
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${spring_framework_version}"
     implementation "org.springframework.boot:spring-boot-starter-web:${spring_framework_version}"
 }
-

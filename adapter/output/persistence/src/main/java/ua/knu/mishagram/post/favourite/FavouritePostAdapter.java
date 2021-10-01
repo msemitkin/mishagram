@@ -2,11 +2,13 @@ package ua.knu.mishagram.post.favourite;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 import ua.knu.mishagram.JdbcRepository;
 
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class FavouritePostAdapter extends JdbcRepository
     implements AddPostToFavouritesPort, LoadFavouritePostsPort, RemovePostFromFavouritesPort {
 

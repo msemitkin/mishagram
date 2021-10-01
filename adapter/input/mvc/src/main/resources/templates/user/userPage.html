@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: main-fragment(
+       ~{:: title},
+       ~{:: #content}
+       )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Mishagram</title>
+</head>
+<body>
+<div id="content" style="width: 600px; margin: auto; margin-top: 60px">
+    <p th:text="${user.getEmail()}">email</p>
+    <ul th:each="post : ${posts}">
+        <li th:text="${post.getDescription()}">descr</li>
+        <li th:text="${post.getCreateDateTime()}">date time</li>
+    </ul>
+</div>
+</body>
+</html>
