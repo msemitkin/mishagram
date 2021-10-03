@@ -29,6 +29,7 @@ public class DeletePostService implements DeletePostUseCase {
         Post deletedPost = new Post(
             post.getId(),
             post.getOwnerId(),
+            post.getContentId(),
             post.getDescription(),
             post.getCreateDateTime(),
             true
