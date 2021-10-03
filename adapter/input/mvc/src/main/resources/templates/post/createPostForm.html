@@ -16,6 +16,12 @@
             line-height: 0.5;
         }
     </style>
+    <script>
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
     <form class="form-horizontal" th:object="${post}" action="/posts" method="post" enctype="multipart/form-data">
         <p class="h4 col-sm-10">Create post</p>
         <div class="alert alert-danger col-sm-10" role="alert" th:if="${#fields.hasErrors('description')}">
@@ -35,8 +41,11 @@
                        autofocus>
             </div>
         </div>
-        <div>
-            <input type="file" th:field="*{content}">
+        <div class="form-group col-sm-10">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" th:field="*{content}">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
