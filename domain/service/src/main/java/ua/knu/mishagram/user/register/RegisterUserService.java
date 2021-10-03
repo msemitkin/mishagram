@@ -1,5 +1,6 @@
 package ua.knu.mishagram.user.register;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.time.DateTimeProvider;
@@ -14,15 +15,18 @@ public class RegisterUserService implements RegisterUserUseCase {
     private final LoadUserPort loadUserPort;
     private final SaveUserPort saveUserPort;
     private final DateTimeProvider dateTimeProvider;
+    private final PasswordEncoder passwordEncoder;
 
     public RegisterUserService(
         LoadUserPort loadUserPort,
         SaveUserPort saveUserPort,
-         DateTimeProvider dateTimeProvider
+        DateTimeProvider dateTimeProvider,
+        PasswordEncoder passwordEncoder
     ) {
         this.loadUserPort = loadUserPort;
         this.saveUserPort = saveUserPort;
         this.dateTimeProvider = dateTimeProvider;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,17 +36,18 @@ public class RegisterUserService implements RegisterUserUseCase {
         if (existedUser.isPresent()) {
             throw new EmailAlreadyUsedException(requestedEmail, "Email already used");
         }
-        User user = mapToUser(registerUserCommand);
+        String encodedPassword = passwordEncoder.encode(registerUserCommand.getPassword());
+        User user = mapToUser(registerUserCommand, encodedPassword);
         saveUserPort.saveUser(user);
     }
 
-    private User mapToUser(RegisterUserCommand registerUserCommand) {
+    private User mapToUser(RegisterUserCommand registerUserCommand, String encodedPassword) {
         return new User(
             0,
             registerUserCommand.getEmail(),
             false,
             dateTimeProvider.now(),
-            registerUserCommand.getPassword()
+            encodedPassword
         );
     }
 }
