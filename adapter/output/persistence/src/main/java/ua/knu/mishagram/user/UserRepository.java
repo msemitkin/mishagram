@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import ua.knu.mishagram.User;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,8 +40,11 @@ public class UserRepository {
 
     List<User> getByIds(List<Integer> ids) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("ids", ids);
+        if(ids.isEmpty()) {
+            return Collections.emptyList();
+        }
         return jdbcTemplate.query(
-            "SELECT * from \"user\" where id in :ids",
+            "SELECT * from \"user\" where \"user\".id in (:ids)",
             sqlParameterSource,
             getUserRowMapper()
         );
@@ -92,6 +96,12 @@ public class UserRepository {
             )
         );
 
+    }
+
+    List<User> loadAll() {
+        return jdbcTemplate.getJdbcTemplate().query(
+            "SELECT * from \"user\"",  getUserRowMapper()
+        );
     }
 
     private RowMapper<User> getUserRowMapper() {
