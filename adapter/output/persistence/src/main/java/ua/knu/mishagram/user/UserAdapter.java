@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, UserExistsPort {
+public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, UserExistsPort, LoadAllUsersPort {
 
     private final UserRepository userRepository;
 
@@ -44,5 +44,10 @@ public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, 
     @Override
     public boolean userExists(int userId) {
         return userRepository.userExists(userId);
+    }
+
+    @Override
+    public List<User> loadAll() {
+        return userRepository.loadAll();
     }
 }

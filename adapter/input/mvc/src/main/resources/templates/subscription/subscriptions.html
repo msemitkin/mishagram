@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: main-fragment(
+       ~{:: title},
+       ~{:: #content}
+       )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Mishagram</title>
+</head>
+<body>
+<div id="content" style="width: 600px; margin: auto; margin-top: 60px">
+    <div th:if="${param.unsubscribed}" class="alert alert-success text-center p-3" role="alert">
+        Successfully unsubscribed
+    </div>
+    <div th:if="${param.subscribed}" class="alert alert-success text-center p-3" role="alert">
+        Successfully subscribed
+    </div>
+    <div th:if="${subscriptions.isEmpty()}" class="alert alert-info text-center p-3" role="alert">
+        You are not subscribed to any user yet
+    </div>
+    <div th:unless="${subscriptions.isEmpty()}">
+        <ul th:each="user : ${subscriptions}">
+            <li th:text="${user.getEmail()}">User email</li>
+            <li><a th:href="@{/users/{id}(id=${user.getId()})}">link</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
