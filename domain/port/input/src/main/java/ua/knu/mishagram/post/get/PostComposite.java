@@ -1,31 +1,33 @@
-package ua.knu.mishagram;
+package ua.knu.mishagram.post.get;
 
 import org.jetbrains.annotations.NotNull;
+import ua.knu.mishagram.Content;
 
 import java.time.LocalDateTime;
 
-public class Post {
+public class PostComposite {
 
     private final int id;
     private final int ownerId;
-    private final int contentId;
+    @NotNull
+    private final Content content;
     @NotNull
     private final String description;
     @NotNull
     private final LocalDateTime createDateTime;
     private final boolean isDeleted;
 
-    public Post(
+    public PostComposite(
         int id,
         int ownerId,
-        int contentId,
+        @NotNull Content content,
         @NotNull String description,
         @NotNull LocalDateTime createDateTime,
-         boolean isDeleted
+        boolean isDeleted
     ) {
         this.id = id;
         this.ownerId = ownerId;
-        this.contentId = contentId;
+        this.content = content;
         this.description = description;
         this.createDateTime = createDateTime;
         this.isDeleted = isDeleted;
@@ -39,8 +41,9 @@ public class Post {
         return ownerId;
     }
 
-    public int getContentId() {
-        return contentId;
+    @NotNull
+    public Content getContent() {
+        return content;
     }
 
     @NotNull

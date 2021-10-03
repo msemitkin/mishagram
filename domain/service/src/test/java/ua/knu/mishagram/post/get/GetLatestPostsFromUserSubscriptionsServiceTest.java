@@ -63,8 +63,8 @@ class GetLatestPostsFromUserSubscriptionsServiceTest {
     void getAllFromUserSubscriptionsInPeriod_successFlow() {
         List<Integer> subscriptions = List.of(33, 44, 55);
         List<Post> posts = List.of(
-            new Post(1, 33, "text33", TEST_DATE, false),
-            new Post(2, 44, "text44", TEST_DATE, false)
+            new Post(1, 33, 333,"text33", TEST_DATE, false),
+            new Post(2, 44, 444,"text44", TEST_DATE, false)
         );
         when(loadUserSubscriptionsPort.getAllByUserId(USER_ID)).thenReturn(subscriptions);
         when(dateTimeProvider.now()).thenReturn(TEST_DATE);
