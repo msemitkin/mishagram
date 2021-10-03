@@ -10,6 +10,7 @@ import ua.knu.mishagram.Post;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -58,13 +59,16 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
 
     @Override
     public @NotNull List<Post> getAllAfterDateTime(@NotNull List<Integer> userIds, @NotNull LocalDateTime since) {
+        if(userIds.isEmpty()) {
+            return Collections.emptyList();
+        }
         return jdbcTemplate.query(
             """
-                SELECT * FROM "post" WHERE owner_id in :userIds
+                SELECT * FROM "post" WHERE owner_id in (:userIds)
                 AND create_date_time > :since
                 ORDER BY create_date_time DESC
                 """,
-            new MapSqlParameterSource("since", Timestamp.valueOf(since)),
+            Map.of("userIds", userIds, "since", Timestamp.valueOf(since)),
             getPostRowMapper()
         );
     }
