@@ -29,6 +29,6 @@ public class GetUserService implements GetUserUseCase {
     public @NotNull User getByEmail(String email) {
         return loadUserPort.loadByEmail(email)
             .filter(not(User::isDeleted))
-            .orElseThrow(() -> new UserNotFoundException("User with given id does not exist"));
+            .orElseThrow(() -> new UserNotFoundException("User with given email does not exist"));
     }
 }
