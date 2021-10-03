@@ -9,6 +9,7 @@ import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.user.UserNotFoundException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -45,7 +46,9 @@ public class GetPostService implements GetPostUseCase {
             throw new UserNotFoundException("User with given id does not exist");
         }
         List<Post> posts = loadPostPort.loadAllByUserId(ownerId);
-
+        if (posts.isEmpty()) {
+            return Collections.emptyList();
+        }
         List<Integer> contentIds = posts.stream()
             .map(Post::getContentId)
             .collect(Collectors.toList());
