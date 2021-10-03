@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: main-fragment(
+       ~{:: title},
+       ~{:: #content}
+       )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Mishagram</title>
+</head>
+<body>
+<div id="content" style="width: 600px; margin: auto; margin-top: 60px">
+    <div th:if="${users.isEmpty()}" class="alert alert-info text-center p-3" role="alert">
+        No users found
+    </div>
+    <div th:unless="${users.isEmpty()}">
+        <ul th:each="user : ${users}">
+            <li th:text="${user.getEmail()}">User email</li>
+            <li><a th:href="@{/users/{id}(id=${user.getId()})}">user link</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
