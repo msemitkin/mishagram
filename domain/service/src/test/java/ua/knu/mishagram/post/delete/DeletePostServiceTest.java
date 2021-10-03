@@ -23,6 +23,7 @@ class DeletePostServiceTest {
 
     private static final int POST_ID = 777;
     private static final int OWNER_ID = 888;
+    private static final int CONTENT_ID = 999;
     private static final LocalDateTime CREATE_DATE_TIME = LocalDateTime.of(1010, 10, 10, 10, 10);
 
     @Mock
@@ -48,10 +49,10 @@ class DeletePostServiceTest {
     @Test
     void deletePostById_successFlow() {
         when(loadPostPort.loadById(POST_ID))
-            .thenReturn(Optional.of(new Post(POST_ID, OWNER_ID, "some text", CREATE_DATE_TIME, false)));
+            .thenReturn(Optional.of(new Post(POST_ID, OWNER_ID, CONTENT_ID, "some text", CREATE_DATE_TIME, false)));
 
         deletePostService.deletePostById(POST_ID);
 
-        verify(updatePostPort).update(is(new Post(POST_ID, OWNER_ID, "some text", CREATE_DATE_TIME, true)));
+        verify(updatePostPort).update(is(new Post(POST_ID, OWNER_ID, CONTENT_ID, "some text", CREATE_DATE_TIME, true)));
     }
 }

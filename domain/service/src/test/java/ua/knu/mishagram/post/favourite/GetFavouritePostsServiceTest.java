@@ -44,8 +44,8 @@ class GetFavouritePostsServiceTest {
     void getUserFavouritePosts_successFlow() {
         List<Integer> postIds = List.of(444, 666);
         List<Post> posts = List.of(
-            new Post(444, USER_ID, "text444", TEST_DATE, false),
-            new Post(666, USER_ID, "text666", TEST_DATE, false)
+            new Post(444, USER_ID, 11, "text444", TEST_DATE, false),
+            new Post(666, USER_ID, 22, "text666", TEST_DATE, false)
         );
         when(loadFavouritePostsPort.getFavouritePostsByUserId(USER_ID))
             .thenReturn(postIds);
