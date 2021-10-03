@@ -4,4 +4,5 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${spring_framework_version}"
     implementation "org.springframework.boot:spring-boot-starter-web:${spring_framework_version}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${spring_framework_version}"
 }

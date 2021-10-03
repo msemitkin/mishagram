@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/withEmptyHeader :: main-fragment(
+       ~{:: title},
+       ~{:: #content}
+       )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<div id="content" style="width: 600px; margin: auto; margin-top: 60px">
+    <style>
+        .alert {
+            line-height: 0.5;
+        }
+    </style>
+    <form class="form-horizontal" action="/login" method="post">
+        <p class="h4 col-sm-10">Please sign in</p>
+        <div th:if="${param.error}" class="alert alert-danger col-sm-10" role="alert">
+            <p>Bad credentials</p>
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success col-sm-10" role="alert">
+            <p>You have been logged out.</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="username">Email:</label>
+            <div class="col-sm-10">
+                <input class="form-control"
+                       type="text"
+                       id="username"
+                       name="username"
+                       placeholder="Enter email"
+                       required
+                       autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="password">Password:</label>
+            <div class="col-sm-10">
+                <input class="form-control"
+                       type="text"
+                       id="password"
+                       name="password"
+                       placeholder="Enter password"
+                       required
+                       autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-info">Login</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.time.DateTimeProvider;
 import ua.knu.mishagram.user.LoadUserPort;
@@ -29,6 +30,8 @@ class RegisterUserServiceTest {
     private SaveUserPort saveUserPort;
     @Mock
     private DateTimeProvider dateTimeProvider;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private RegisterUserService registerUserService;
@@ -46,11 +49,12 @@ class RegisterUserServiceTest {
     void registerUser_successFlow() {
         when(loadUserPort.loadByEmail("some email")).thenReturn(Optional.empty());
         when(dateTimeProvider.now()).thenReturn(TEST_DATE);
+        when(passwordEncoder.encode("pass")).thenReturn("encoded pass");
 
         RegisterUserCommand registerUserCommand = new RegisterUserCommand("some email", "pass");
         registerUserService.registerUser(registerUserCommand);
 
-        User expectedUser = new User(0, "some email", false, TEST_DATE, "pass");
+        User expectedUser = new User(0, "some email", false, TEST_DATE, "encoded pass");
         verify(saveUserPort).saveUser(is(expectedUser));
     }
 }
