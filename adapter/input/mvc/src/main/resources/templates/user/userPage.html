@@ -16,6 +16,18 @@
         <li th:text="${post.getDescription()}">descr</li>
         <li th:text="${post.getCreateDateTime()}">date time</li>
     </ul>
+    <th:block th:if="${user.getId() != currentUserId}">
+        <div th:if="${isSubscribed}">
+            <form th:action="@{/users/{id}/unsubscribe(id=${user.getId()})}" method="post">
+                <button type="submit">Unsubscribe</button>
+            </form>
+        </div>
+        <div th:unless="${isSubscribed}">
+            <form th:action="@{/users/{id}/subscribe(id=${user.getId()})}" method="post">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </th:block>
 </div>
 </body>
 </html>
