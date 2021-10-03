@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.Content;
 
 public class CreatePostCommand {
-    //TODO add photo
     private final int ownerId;
     @NotNull
     private final String description;
@@ -14,7 +13,7 @@ public class CreatePostCommand {
     public CreatePostCommand(
         int ownerId,
         @NotNull String description,
-        Content content
+        @NotNull Content content
     ) {
         this.ownerId = ownerId;
         this.description = description;

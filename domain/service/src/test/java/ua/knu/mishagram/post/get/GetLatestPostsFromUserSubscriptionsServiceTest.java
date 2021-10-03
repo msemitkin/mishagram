@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ua.knu.mishagram.Content;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.subscription.LoadUserSubscriptionsPort;
 import ua.knu.mishagram.test.util.TestUtils;
@@ -30,6 +31,8 @@ class GetLatestPostsFromUserSubscriptionsServiceTest {
     private LoadUserPostsAfterDateTimePort loadUserPostsAfterDateTimePort;
     @Mock
     private DateTimeProvider dateTimeProvider;
+    @Mock
+    private PostCompositeBuilderService postCompositeBuilderService;
 
     @InjectMocks
     private GetLatestPostsFromUserSubscriptionsService getLatestPostsFromUserSubscriptionsService;
@@ -39,7 +42,7 @@ class GetLatestPostsFromUserSubscriptionsServiceTest {
         when(loadUserSubscriptionsPort.getAllByUserId(USER_ID))
             .thenReturn(Collections.emptyList());
 
-        List<Post> posts = getLatestPostsFromUserSubscriptionsService
+        List<PostComposite> posts = getLatestPostsFromUserSubscriptionsService
             .getAllFromUserSubscriptionsInPeriod(USER_ID, PERIOD);
 
         Assertions.assertTrue(posts.isEmpty());
@@ -53,7 +56,7 @@ class GetLatestPostsFromUserSubscriptionsServiceTest {
         when(loadUserPostsAfterDateTimePort.getAllAfterDateTime(subscriptions, TEST_DATE.minus(PERIOD)))
             .thenReturn(Collections.emptyList());
 
-        List<Post> posts = getLatestPostsFromUserSubscriptionsService
+        List<PostComposite> posts = getLatestPostsFromUserSubscriptionsService
             .getAllFromUserSubscriptionsInPeriod(USER_ID, PERIOD);
 
         Assertions.assertTrue(posts.isEmpty());
@@ -70,10 +73,14 @@ class GetLatestPostsFromUserSubscriptionsServiceTest {
         when(dateTimeProvider.now()).thenReturn(TEST_DATE);
         when(loadUserPostsAfterDateTimePort.getAllAfterDateTime(subscriptions, TEST_DATE.minus(PERIOD)))
             .thenReturn(posts);
-
-        List<Post> actualPosts = getLatestPostsFromUserSubscriptionsService
+        List<PostComposite> postComposites = List.of(
+            new PostComposite(1, 33, new Content(333, "name333", "ext333", new byte[3]), "text33", TEST_DATE, false),
+            new PostComposite(1, 44, new Content(444, "name444", "ext444", new byte[4]), "text33", TEST_DATE, false)
+        );
+        when(postCompositeBuilderService.getPostComposites(posts)).thenReturn(postComposites);
+        List<PostComposite> actualPosts = getLatestPostsFromUserSubscriptionsService
             .getAllFromUserSubscriptionsInPeriod(USER_ID, PERIOD);
 
-        TestUtils.assertJsonModelsEquals(posts, actualPosts);
+        TestUtils.assertJsonModelsEquals(postComposites, actualPosts);
     }
 }

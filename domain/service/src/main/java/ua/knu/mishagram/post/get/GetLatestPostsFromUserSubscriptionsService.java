@@ -16,24 +16,28 @@ public class GetLatestPostsFromUserSubscriptionsService implements GetLatestPost
     private final LoadUserSubscriptionsPort loadUserSubscriptionsPort;
     private final LoadUserPostsAfterDateTimePort loadUserPostsAfterDateTimePort;
     private final DateTimeProvider dateTimeProvider;
+    private final PostCompositeBuilderService postCompositeBuilderService;
 
     public GetLatestPostsFromUserSubscriptionsService(
         LoadUserSubscriptionsPort loadUserSubscriptionsPort,
         LoadUserPostsAfterDateTimePort loadUserPostsAfterDateTimePort,
-        DateTimeProvider dateTimeProvider
+        DateTimeProvider dateTimeProvider,
+        PostCompositeBuilderService postCompositeBuilderService
     ) {
         this.loadUserSubscriptionsPort = loadUserSubscriptionsPort;
         this.loadUserPostsAfterDateTimePort = loadUserPostsAfterDateTimePort;
         this.dateTimeProvider = dateTimeProvider;
+        this.postCompositeBuilderService = postCompositeBuilderService;
     }
 
     @Override
-    public List<Post> getAllFromUserSubscriptionsInPeriod(int userId, Period period) {
+    public List<PostComposite> getAllFromUserSubscriptionsInPeriod(int userId, Period period) {
         List<Integer> subscriptions = loadUserSubscriptionsPort.getAllByUserId(userId);
         if (subscriptions.isEmpty()) {
             return Collections.emptyList();
         }
         LocalDateTime loadFromDateTime = dateTimeProvider.now().minus(period);
-        return loadUserPostsAfterDateTimePort.getAllAfterDateTime(subscriptions, loadFromDateTime);
+        List<Post> posts = loadUserPostsAfterDateTimePort.getAllAfterDateTime(subscriptions, loadFromDateTime);
+        return postCompositeBuilderService.getPostComposites(posts);
     }
 }
