@@ -16,7 +16,7 @@
             line-height: 0.5;
         }
     </style>
-    <form class="form-horizontal" th:object="${post}" action="/posts" method="post">
+    <form class="form-horizontal" th:object="${post}" action="/posts" method="post" enctype="multipart/form-data">
         <p class="h4 col-sm-10">Create post</p>
         <div class="alert alert-danger col-sm-10" role="alert" th:if="${#fields.hasErrors('description')}">
             <p th:each="error: ${#fields.errors('description')}"
@@ -34,6 +34,9 @@
                        required
                        autofocus>
             </div>
+        </div>
+        <div>
+            <input type="file" th:field="*{content}">
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

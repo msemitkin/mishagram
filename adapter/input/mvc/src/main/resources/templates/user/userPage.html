@@ -15,6 +15,7 @@
     <ul th:each="post : ${posts}">
         <li th:text="${post.getDescription()}">descr</li>
         <li th:text="${post.getCreateDateTime()}">date time</li>
+        <li><img th:src="${post.getBase64Img()}" alt="Image" width="500px" height="auto"></li>
     </ul>
     <th:block th:if="${user.getId() != currentUserId}">
         <div th:if="${isSubscribed}">

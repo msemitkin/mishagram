@@ -73,6 +73,7 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
         return (resultSet, rowNum) -> new Post(
             resultSet.getInt("id"),
             resultSet.getInt("owner_id"),
+            resultSet.getInt("content_id"),
             resultSet.getString("description"),
             resultSet.getTimestamp("create_date_time").toLocalDateTime(),
             resultSet.getBoolean("is_deleted")
