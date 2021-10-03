@@ -7,16 +7,14 @@
        )}">
 <head>
     <meta charset="UTF-8">
-    <title>Mishagram</title>
+    <title>MishaGram</title>
 </head>
 <body>
 <div id="content" style="width: 600px; margin: auto; margin-top: 60px">
+    <script th:src="@{/js/showModal.js}" type="text/javascript"></script>
+    <link rel="stylesheet" th:href="@{/css/gallery.css}">
+
     <p th:text="${user.getEmail()}">email</p>
-    <ul th:each="post : ${posts}">
-        <li th:text="${post.getDescription()}">descr</li>
-        <li th:text="${post.getCreateDateTime()}">date time</li>
-        <li><img th:src="${post.getBase64Img()}" alt="Image" width="500px" height="auto"></li>
-    </ul>
     <th:block th:if="${user.getId() != currentUserId}">
         <div th:if="${isSubscribed}">
             <form th:action="@{/users/{id}/unsubscribe(id=${user.getId()})}" method="post">
@@ -29,6 +27,49 @@
             </form>
         </div>
     </th:block>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <div class="container">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-xs-6 thumb" th:each="post : ${posts}">
+                    <a class="thumbnail" href="#" data-image-id="" data-toggle="modal"
+                       th:data-title="${post.description}"
+                       th:data-image="${post.getBase64Img()}"
+                       data-target="#image-gallery">
+                        <img class="img-thumbnail"
+                             th:src="${post.getBase64Img()}"
+                             alt="Another alt text">
+                    </a>
+                </div>
+            </div>
+
+            <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img id="image-gallery-image" class="img-responsive col-md-12" src="">
+                            <h4 class="modal-title" id="image-gallery-title"></h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i
+                                    class="fa fa-arrow-left"></i>
+                            </button>
+                            <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i
+                                    class="fa fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
