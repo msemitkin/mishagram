@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.user.LoadUserPort;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,7 +24,10 @@ public class GetSubscriptionsService implements GetSubscriptionsUseCase {
     @Override
     public List<User> getAllByUserId(int userId) {
         List<Integer> userIds = loadUserSubscriptionsPort.getAllByUserId(userId);
-        return  loadUserPort.loadAll(userIds);
+        if (userIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return loadUserPort.loadAll(userIds);
     }
 
 }
