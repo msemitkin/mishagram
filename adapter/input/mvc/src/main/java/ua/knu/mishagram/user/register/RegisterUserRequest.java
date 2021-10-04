@@ -1,8 +1,17 @@
 package ua.knu.mishagram.user.register;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 class RegisterUserRequest {
+    @Email(message = "Email is not valid")
     private String email;
+    @NotNull(message = "Password is required")
+    @NotBlank(message = "Password is required")
     private String password;
+    @NotNull(message = "Password confirmation is required")
+    @NotBlank(message = "Password confirmation is required")
     private String passwordConfirmation;
 
     RegisterUserRequest() {

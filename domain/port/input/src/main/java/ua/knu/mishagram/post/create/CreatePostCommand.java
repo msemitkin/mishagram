@@ -3,6 +3,8 @@ package ua.knu.mishagram.post.create;
 import org.jetbrains.annotations.NotNull;
 import ua.knu.mishagram.Content;
 
+import java.util.Objects;
+
 public class CreatePostCommand {
     private final int ownerId;
     @NotNull
@@ -16,8 +18,8 @@ public class CreatePostCommand {
         @NotNull Content content
     ) {
         this.ownerId = ownerId;
-        this.description = description;
-        this.content = content;
+        this.description = Objects.requireNonNull(description);
+        this.content = Objects.requireNonNull(content);
     }
 
     public int getOwnerId() {
