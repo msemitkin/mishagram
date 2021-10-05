@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.test.util.TestUtils;
 import ua.knu.mishagram.user.LoadUserPort;
-import ua.knu.mishagram.user.UserNotFoundException;
+import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

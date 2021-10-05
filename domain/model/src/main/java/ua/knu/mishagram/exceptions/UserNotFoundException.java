@@ -1,4 +1,4 @@
-package ua.knu.mishagram.user;
+package ua.knu.mishagram.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
 

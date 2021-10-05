@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.Subscription;
+import ua.knu.mishagram.exceptions.InvalidSubscriptionException;
 
 import java.util.List;
 

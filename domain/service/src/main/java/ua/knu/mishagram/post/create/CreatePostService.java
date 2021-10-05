@@ -9,7 +9,7 @@ import ua.knu.mishagram.post.SavePostContentPort;
 import ua.knu.mishagram.post.SavePostPort;
 import ua.knu.mishagram.time.DateTimeProvider;
 import ua.knu.mishagram.user.UserExistsPort;
-import ua.knu.mishagram.user.UserNotFoundException;
+import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 @Service
 public class CreatePostService implements CreatePostUseCase {

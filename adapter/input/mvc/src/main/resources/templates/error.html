@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/withEmptyHeader :: main-fragment(
+       ~{:: title},
+       ~{:: #content}
+       )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Mishagram</title>
+</head>
+<body>
+<div id="content" style="width: 600px; margin: auto; margin-top: 60px">
+    <style>
+        .error-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        .error-actions {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .error-actions .btn {
+            margin-right: 10px;
+        }
+    </style>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>Oops!</h1>
+                <div class="error-details" th:if="${message == null}">
+                    Something went wrong
+                </div>
+                <div class="error-details" th:unless="${message == null}" th:text="${message}">
+                    Message
+                </div>
+                <div class="error-actions">
+                    <a href="/" class="btn btn-primary btn-lg">Take Me Home</a>
+                    <a href="mailto:michael.semitkin@gmail.com" class="btn btn-default btn-lg">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

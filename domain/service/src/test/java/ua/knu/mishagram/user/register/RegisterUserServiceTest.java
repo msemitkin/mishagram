@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ua.knu.mishagram.User;
+import ua.knu.mishagram.exceptions.EmailAlreadyUsedException;
 import ua.knu.mishagram.time.DateTimeProvider;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.user.SaveUserPort;

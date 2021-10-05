@@ -1,4 +1,4 @@
-package ua.knu.mishagram.post.get;
+package ua.knu.mishagram.exceptions;
 
 public class ContentNotFoundException extends RuntimeException {
 
