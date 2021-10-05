@@ -11,7 +11,21 @@
 </head>
 <body>
 <div id="content" style="width: 600px; margin: auto; margin-top: 60px">
-    Welcome to Mishagram application
+    <style>
+        .menu-btn {
+            margin-bottom: 5px;
+        }
+    </style>
+    <div>
+        <h4 class="mb-3 d-flex justify-content-center">Welcome to Mishagram application</h4>
+        <div class="btn-group-vertical d-flex justify-content-center">
+            <a href="/posts/form" class="menu-btn btn btn-outline-info">Create post</a>
+            <a href="/users" class="menu-btn btn btn-outline-info">Users</a>
+            <a href="/users/me/subscriptions" class="menu-btn btn btn-outline-info">Subscriptions</a>
+            <a href="/subscriptions/latest" class="menu-btn btn btn-outline-info">News</a>
+            <a href="/logout" class="menu-btn btn btn-outline-info">Logout</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

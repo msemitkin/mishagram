@@ -5,7 +5,7 @@ import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.post.favourites.AddToFavouritesUseCase;
 import ua.knu.mishagram.post.get.PostExistsPort;
 import ua.knu.mishagram.user.UserExistsPort;
-import ua.knu.mishagram.user.UserNotFoundException;
+import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 @Service
 public class AddPostToFavouritesService implements AddToFavouritesUseCase {

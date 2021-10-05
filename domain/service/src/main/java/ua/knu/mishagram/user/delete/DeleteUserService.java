@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.user.UpdateUserPort;
-import ua.knu.mishagram.user.UserNotFoundException;
+import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 @Service
 public class DeleteUserService implements DeleteUserUseCase {

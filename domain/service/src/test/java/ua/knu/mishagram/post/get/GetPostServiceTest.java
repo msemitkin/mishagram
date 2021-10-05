@@ -12,7 +12,7 @@ import ua.knu.mishagram.content.LoadFileContentPort;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.test.util.TestUtils;
 import ua.knu.mishagram.user.UserExistsPort;
-import ua.knu.mishagram.user.UserNotFoundException;
+import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;

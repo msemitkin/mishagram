@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.PostNotFoundException;
 import ua.knu.mishagram.user.UserExistsPort;
-import ua.knu.mishagram.user.UserNotFoundException;
+import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 import java.util.List;
 

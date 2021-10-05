@@ -3,6 +3,7 @@ package ua.knu.mishagram.user.register;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.knu.mishagram.User;
+import ua.knu.mishagram.exceptions.EmailAlreadyUsedException;
 import ua.knu.mishagram.time.DateTimeProvider;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.user.SaveUserPort;

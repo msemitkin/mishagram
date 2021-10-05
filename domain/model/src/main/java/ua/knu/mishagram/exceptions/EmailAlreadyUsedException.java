@@ -1,4 +1,4 @@
-package ua.knu.mishagram.user.register;
+package ua.knu.mishagram.exceptions;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -7,7 +7,7 @@ public class EmailAlreadyUsedException extends RuntimeException {
     @NotNull
     private final String email;
 
-    EmailAlreadyUsedException(@NotNull String email, @NotNull String message) {
+    public EmailAlreadyUsedException(@NotNull String email, @NotNull String message) {
         super(message);
         this.email = email;
     }
