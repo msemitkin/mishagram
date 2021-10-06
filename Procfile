@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -Dspring.profiles.active=prod -jar application/build/libs/application-0.0.1-SNAPSHOT.jar
+web: java $JAVA_OPTS -Dserver.port=$PORT -Dspring.profiles.active=prod -jar mishagram-application/build/libs/mishagram-application-0.0.1-SNAPSHOT.jar
