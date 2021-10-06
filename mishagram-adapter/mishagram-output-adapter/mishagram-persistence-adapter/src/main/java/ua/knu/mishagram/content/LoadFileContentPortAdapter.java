@@ -1,5 +1,6 @@
 package ua.knu.mishagram.content;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,13 +25,19 @@ public class LoadFileContentPortAdapter extends JdbcRepository implements LoadFi
 
     @Override
     public Optional<Content> loadById(int id) {
-        return jdbcTemplate.queryForStream(
-            """
-                SELECT * FROM content WHERE id = :id
-                """,
-            Map.of("id", id),
-            CONTENT_ROW_MAPPER
-        ).findAny();
+        try {
+            return Optional.ofNullable(
+                jdbcTemplate.queryForObject(
+                    """
+                        SELECT * FROM content WHERE id = :id
+                        """,
+                    Map.of("id", id),
+                    CONTENT_ROW_MAPPER
+                )
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
 
     }
 
@@ -39,11 +46,11 @@ public class LoadFileContentPortAdapter extends JdbcRepository implements LoadFi
         if (ids.isEmpty()) {
             return Collections.emptyMap();
         }
-        return jdbcTemplate.queryForStream(
+        return jdbcTemplate.query(
                 "SELECT * FROM content WHERE id in (:ids)",
                 new MapSqlParameterSource("ids", ids),
                 CONTENT_ROW_MAPPER
-            )
+            ).stream()
             .collect(Collectors.toMap(Content::getId, Function.identity()));
     }
 

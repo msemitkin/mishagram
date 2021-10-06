@@ -1,5 +1,6 @@
 package ua.knu.mishagram.user;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -23,24 +24,34 @@ public class UserRepository {
     }
 
     Optional<User> getById(int id) {
-        return jdbcTemplate.queryForStream(
-            "SELECT * from \"user\" where id = :id",
-            Map.of("id", id),
-            getUserRowMapper()
-        ).findAny();
+        try {
+            return Optional.ofNullable(
+                jdbcTemplate.queryForObject(
+                    "SELECT * from \"user\" where id = :id",
+                    Map.of("id", id),
+                    getUserRowMapper()
+                )
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     Optional<User> getByEmail(String email) {
-        return jdbcTemplate.queryForStream(
-            "SELECT * from \"user\" where email = :email",
-            Map.of("email", email),
-            getUserRowMapper()
-        ).findAny();
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(
+                "SELECT * from \"user\" where email = :email",
+                Map.of("email", email),
+                getUserRowMapper()
+            ));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     List<User> getByIds(List<Integer> ids) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("ids", ids);
-        if(ids.isEmpty()) {
+        if (ids.isEmpty()) {
             return Collections.emptyList();
         }
         return jdbcTemplate.query(
@@ -100,7 +111,7 @@ public class UserRepository {
 
     List<User> loadAll() {
         return jdbcTemplate.getJdbcTemplate().query(
-            "SELECT * from \"user\"",  getUserRowMapper()
+            "SELECT * from \"user\"", getUserRowMapper()
         );
     }
 
