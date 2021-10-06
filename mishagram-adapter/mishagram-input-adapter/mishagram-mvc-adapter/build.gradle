@@ -1,6 +1,6 @@
 dependencies {
-    implementation project(":domain:port:input")
-    implementation project(":domain:model")
+    implementation project(":mishagram-domain:mishagram-port:mishagram-input-port")
+    implementation project(":mishagram-domain:mishagram-model")
 
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${spring_framework_version}"
     implementation "org.springframework.boot:spring-boot-starter-web:${spring_framework_version}"
