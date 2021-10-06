@@ -27,7 +27,7 @@ public class DatabaseConfig {
         hikariConfig.setPassword(password);
         hikariConfig.setDriverClassName(driverClassName);
         hikariConfig.setPoolName("mishagram-application-connection-pool");
-        hikariConfig.setMaximumPoolSize(100);
+        hikariConfig.setMaximumPoolSize(20);
         hikariConfig.setConnectionTimeout(5000);
         return new HikariDataSource(hikariConfig);
     }
