@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-    implementation project(":domain:model")
-    implementation project(":domain:port:input")
-    implementation project(":domain:port:output:persistence")
+    implementation project(":mishagram-domain:mishagram-model")
+    implementation project(":mishagram-domain:mishagram-port:mishagram-input-port")
+    implementation project(":mishagram-domain:mishagram-port:mishagram-output-port:mishagram-persistence-port")
 
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation "org.springframework.boot:spring-boot-starter:${spring_framework_version}"
