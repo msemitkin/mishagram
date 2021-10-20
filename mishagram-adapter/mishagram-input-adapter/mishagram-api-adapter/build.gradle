@@ -1,0 +1,8 @@
+dependencies {
+    implementation project(":mishagram-domain:mishagram-port:mishagram-input-port")
+    implementation project(":mishagram-domain:mishagram-model")
+
+    implementation "org.springframework.boot:spring-boot-starter-web:${spring_framework_version}"
+    implementation "org.springframework.boot:spring-boot-starter-validation:${spring_framework_version}"
+
+}
