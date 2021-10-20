@@ -1,8 +1,10 @@
 rootProject.name = 'board'
 
-include ':mishagram-application'
+include ':mishagram-web-mvc-application'
+include ':mishagram-web-api-application'
 include ':mishagram-adapter:mishagram-output-adapter:mishagram-persistence-adapter'
 include ':mishagram-adapter:mishagram-input-adapter:mishagram-mvc-adapter'
+include ':mishagram-adapter:mishagram-input-adapter:mishagram-api-adapter'
 include ':mishagram-domain:mishagram-port:mishagram-input-port'
 include ':mishagram-domain:mishagram-port:mishagram-output-port:mishagram-persistence-port'
 include ':mishagram-domain:mishagram-model'
