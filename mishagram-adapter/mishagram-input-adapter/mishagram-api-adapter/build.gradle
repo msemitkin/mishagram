@@ -3,6 +3,7 @@ dependencies {
     implementation project(":mishagram-domain:mishagram-model")
 
     implementation "org.springframework.boot:spring-boot-starter-web:${spring_framework_version}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${spring_framework_version}"
     implementation "org.springframework.boot:spring-boot-starter-validation:${spring_framework_version}"
-
+    implementation 'org.springdoc:springdoc-openapi-ui:1.5.11'
 }
