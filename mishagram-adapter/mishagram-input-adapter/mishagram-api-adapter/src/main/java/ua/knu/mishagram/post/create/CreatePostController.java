@@ -1,4 +1,4 @@
-package ua.knu.mishagram.post;
+package ua.knu.mishagram.post.create;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ua.knu.mishagram.Content;
 import ua.knu.mishagram.ValidationException;
-import ua.knu.mishagram.post.create.CreatePostCommand;
-import ua.knu.mishagram.post.create.CreatePostUseCase;
+import ua.knu.mishagram.post.UploadFileException;
 
 import javax.validation.Valid;
 import java.io.IOException;

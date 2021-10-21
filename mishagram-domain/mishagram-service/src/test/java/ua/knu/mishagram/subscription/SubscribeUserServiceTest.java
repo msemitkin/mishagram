@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.Subscription;
-import ua.knu.mishagram.exceptions.InvalidSubscriptionException;
 
 import java.util.List;
 
@@ -28,9 +27,11 @@ class SubscribeUserServiceTest {
 
     @Test
     void subscribe_shouldThrowException_whenUserIdsMatch() {
+        Subscription subscription = new Subscription(100, 100);
+
         Assertions.assertThrows(
             InvalidSubscriptionException.class,
-            () -> subscribeUserService.subscribe(new Subscription(100, 100))
+            () -> subscribeUserService.subscribe(subscription)
         );
     }
 

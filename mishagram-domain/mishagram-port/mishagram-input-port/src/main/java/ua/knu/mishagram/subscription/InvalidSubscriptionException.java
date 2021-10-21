@@ -1,4 +1,4 @@
-package ua.knu.mishagram.exceptions;
+package ua.knu.mishagram.subscription;
 
 public class InvalidSubscriptionException extends RuntimeException {
 

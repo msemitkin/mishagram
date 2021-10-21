@@ -1,9 +1,8 @@
-package ua.knu.mishagram.post;
+package ua.knu.mishagram.post.delete;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import ua.knu.mishagram.post.delete.DeletePostUseCase;
 
 @RestController
 public class DeletePostController {
