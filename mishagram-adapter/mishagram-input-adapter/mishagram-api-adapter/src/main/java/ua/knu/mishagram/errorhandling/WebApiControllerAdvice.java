@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ua.knu.mishagram.ValidationException;
 import ua.knu.mishagram.exceptions.EmailAlreadyUsedException;
+import ua.knu.mishagram.exceptions.InvalidSubscriptionException;
+import ua.knu.mishagram.exceptions.PostNotFoundException;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
 import ua.knu.mishagram.post.UploadFileException;
-import ua.knu.mishagram.subscription.InvalidSubscriptionException;
 
 import static ua.knu.mishagram.errorhandling.ErrorReason.EMAIL_ALREADY_USED_ERROR;
 import static ua.knu.mishagram.errorhandling.ErrorReason.INTERNAL_ERROR;
+import static ua.knu.mishagram.errorhandling.ErrorReason.POST_NOT_FOUND_ERROR;
 import static ua.knu.mishagram.errorhandling.ErrorReason.SELF_SUBSCRIPTION_ERROR;
 import static ua.knu.mishagram.errorhandling.ErrorReason.UPLOAD_FILE_ERROR;
 import static ua.knu.mishagram.errorhandling.ErrorReason.USER_NOT_FOUND_ERROR;
@@ -28,6 +30,13 @@ public class WebApiControllerAdvice {
     public ErrorDto handleUserNotFoundException(UserNotFoundException e) {
         logger.warn("Requested user was not found", e);
         return new ErrorDto(USER_NOT_FOUND_ERROR, "User not found");
+    }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDto handlePostNotFoundException(PostNotFoundException e) {
+        logger.warn("Requested post was not found", e);
+        return new ErrorDto(POST_NOT_FOUND_ERROR, "Post not found");
     }
 
     @ExceptionHandler(EmailAlreadyUsedException.class)

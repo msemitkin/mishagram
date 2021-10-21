@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.Post;
-import ua.knu.mishagram.post.PostNotFoundException;
+import ua.knu.mishagram.exceptions.PostNotFoundException;
 import ua.knu.mishagram.post.UpdatePostPort;
 import ua.knu.mishagram.post.get.LoadPostPort;
 

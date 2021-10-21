@@ -1,7 +1,7 @@
 package ua.knu.mishagram.post.liked;
 
 import org.springframework.stereotype.Service;
-import ua.knu.mishagram.post.PostNotFoundException;
+import ua.knu.mishagram.exceptions.PostNotFoundException;
 import ua.knu.mishagram.post.get.PostExistsPort;
 
 @Service
