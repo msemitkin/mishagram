@@ -2,7 +2,6 @@ package ua.knu.mishagram.subscription;
 
 import org.springframework.stereotype.Service;
 import ua.knu.mishagram.Subscription;
-import ua.knu.mishagram.exceptions.InvalidSubscriptionException;
 
 import java.util.List;
 

@@ -10,9 +10,11 @@ import ua.knu.mishagram.ValidationException;
 import ua.knu.mishagram.exceptions.EmailAlreadyUsedException;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
 import ua.knu.mishagram.post.UploadFileException;
+import ua.knu.mishagram.subscription.InvalidSubscriptionException;
 
 import static ua.knu.mishagram.errorhandling.ErrorReason.EMAIL_ALREADY_USED_ERROR;
 import static ua.knu.mishagram.errorhandling.ErrorReason.INTERNAL_ERROR;
+import static ua.knu.mishagram.errorhandling.ErrorReason.SELF_SUBSCRIPTION_ERROR;
 import static ua.knu.mishagram.errorhandling.ErrorReason.UPLOAD_FILE_ERROR;
 import static ua.knu.mishagram.errorhandling.ErrorReason.USER_NOT_FOUND_ERROR;
 
@@ -45,6 +47,12 @@ public class WebApiControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDto handleValidationException(ValidationException e) {
         return new ErrorDto(e.getErrorReason(), "Validation failed");
+    }
+
+    @ExceptionHandler(InvalidSubscriptionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDto handleInvalidSubscriptionException(InvalidSubscriptionException e) {
+        return new ErrorDto(SELF_SUBSCRIPTION_ERROR,"Cannot subscribe to self");
     }
 
     @ExceptionHandler(Exception.class)

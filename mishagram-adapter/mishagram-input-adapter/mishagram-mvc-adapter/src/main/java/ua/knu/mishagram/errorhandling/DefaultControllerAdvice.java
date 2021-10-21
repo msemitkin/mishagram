@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ua.knu.mishagram.exceptions.ContentNotFoundException;
 import ua.knu.mishagram.exceptions.EmailAlreadyUsedException;
-import ua.knu.mishagram.exceptions.InvalidSubscriptionException;
+import ua.knu.mishagram.subscription.InvalidSubscriptionException;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 @ControllerAdvice

@@ -1,9 +1,9 @@
-package ua.knu.mishagram.post;
+package ua.knu.mishagram.post.create;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class CreatePostDto {
+class CreatePostDto {
 
     @NotNull
     @NotBlank
