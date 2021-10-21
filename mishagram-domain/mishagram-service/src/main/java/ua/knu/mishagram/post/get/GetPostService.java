@@ -3,7 +3,7 @@ package ua.knu.mishagram.post.get;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import ua.knu.mishagram.Post;
-import ua.knu.mishagram.post.PostNotFoundException;
+import ua.knu.mishagram.exceptions.PostNotFoundException;
 import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
 
