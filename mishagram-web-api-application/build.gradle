@@ -1,0 +1,21 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+}
+
+
+dependencies {
+    implementation project(":mishagram-domain:mishagram-model")
+    implementation project(":mishagram-domain:mishagram-port:mishagram-input-port")
+    implementation project(":mishagram-domain:mishagram-port:mishagram-output-port:mishagram-persistence-port")
+    implementation project(":mishagram-domain:mishagram-service")
+    implementation project(":mishagram-adapter:mishagram-output-adapter:mishagram-persistence-adapter")
+    implementation project(":mishagram-adapter:mishagram-input-adapter:mishagram-api-adapter")
+
+    implementation "org.springframework.boot:spring-boot-starter-web:${spring_framework_version}"
+}
+
+//TODO remove this quick fix
+tasks.named("bootJar") {
+    duplicatesStrategy = 'include'
+}
+

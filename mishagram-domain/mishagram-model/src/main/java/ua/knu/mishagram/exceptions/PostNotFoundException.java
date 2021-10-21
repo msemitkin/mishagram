@@ -1,4 +1,4 @@
-package ua.knu.mishagram.post;
+package ua.knu.mishagram.exceptions;
 
 public class PostNotFoundException extends RuntimeException {
 

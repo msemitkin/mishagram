@@ -28,9 +28,11 @@ class SubscribeUserServiceTest {
 
     @Test
     void subscribe_shouldThrowException_whenUserIdsMatch() {
+        Subscription subscription = new Subscription(100, 100);
+
         Assertions.assertThrows(
             InvalidSubscriptionException.class,
-            () -> subscribeUserService.subscribe(new Subscription(100, 100))
+            () -> subscribeUserService.subscribe(subscription)
         );
     }
 

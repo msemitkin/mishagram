@@ -1,6 +1,7 @@
 package ua.knu.mishagram.post.get;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,15 +25,19 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
 
     @Override
     public @NotNull Optional<Post> loadById(int id) {
-        return Optional.ofNullable(
-            jdbcTemplate.queryForObject(
-                """
-                    SELECT * FROM "post" WHERE id = :id
-                    """,
-                Map.of("id", id),
-                getPostRowMapper()
-            )
-        );
+        try {
+            return Optional.ofNullable(
+                jdbcTemplate.queryForObject(
+                    """
+                        SELECT * FROM "post" WHERE id = :id
+                        """,
+                    Map.of("id", id),
+                    getPostRowMapper()
+                )
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

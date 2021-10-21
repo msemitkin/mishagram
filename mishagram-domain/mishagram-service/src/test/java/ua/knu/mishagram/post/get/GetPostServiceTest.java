@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.Content;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.content.LoadFileContentPort;
-import ua.knu.mishagram.post.PostNotFoundException;
+import ua.knu.mishagram.exceptions.PostNotFoundException;
 import ua.knu.mishagram.test.util.TestUtils;
 import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
