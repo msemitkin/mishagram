@@ -69,18 +69,19 @@
 
         <script>
             mapboxgl.accessToken = 'pk.eyJ1IjoibXNlbWl0dGtpbiIsImEiOiJja3gzZGR0bWEwbTdlMm9vMXV3dW40emczIn0.0zPf1fs-nn5OI3jPSxkBBg';
+            const center = [30.5234, 50.4501];
 
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
-                center: [0, 0],
-                zoom: 2
+                center: center,
+                zoom: 8
             });
 
             const marker = new mapboxgl.Marker({
                 draggable: true
             })
-                .setLngLat([0, 0])
+                .setLngLat(center)
                 .addTo(map);
 
             function onDragEnd() {
