@@ -11,13 +11,24 @@
 </head>
 <body>
 <div id="content" style="width: 600px; margin: auto; margin-top: 60px">
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .alert {
             line-height: 0.5;
         }
+
+        #map {
+            width: 800px;
+            height: 450px;
+            margin: auto;
+        }
     </style>
     <script>
-        $(".custom-file-input").on("change", function() {
+        $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
@@ -52,6 +63,38 @@
                 <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
         </div>
+
+        <div id="map"></div>
+        <pre id="coordinates" class="coordinates"></pre>
+
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoibXNlbWl0dGtpbiIsImEiOiJja3gzZGR0bWEwbTdlMm9vMXV3dW40emczIn0.0zPf1fs-nn5OI3jPSxkBBg';
+
+            const map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [0, 0],
+                zoom: 2
+            });
+
+            const marker = new mapboxgl.Marker({
+                draggable: true
+            })
+                .setLngLat([0, 0])
+                .addTo(map);
+
+            function onDragEnd() {
+                const lngLat = marker.getLngLat();
+                $('#post-lon').val(lngLat.lng);
+                $('#post-lat').val(lngLat.lat);
+            }
+
+            marker.on('dragend', onDragEnd);
+        </script>
+
+        <input type="hidden" id="post-lon" name="longitude">
+        <input type="hidden" id="post-lat" name="latitude">
+
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-info">Save</button>

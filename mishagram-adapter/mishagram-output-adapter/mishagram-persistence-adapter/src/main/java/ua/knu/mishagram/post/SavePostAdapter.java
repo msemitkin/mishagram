@@ -23,12 +23,16 @@ public class SavePostAdapter extends JdbcRepository implements SavePostPort, Upd
             "owner_id", post.getOwnerId(),
             "create_date_time", Timestamp.valueOf(post.getCreateDateTime()),
             "is_deleted", post.isDeleted(),
-            "content_id", post.getContentId()
+            "content_id", post.getContentId(),
+            "longitude", post.getCoordinates().getLongitude(),
+            "latitude", post.getCoordinates().getLatitude()
         );
         jdbcTemplate.update(
             """
                 INSERT INTO post (description, owner_id, create_date_time, is_deleted, content_id)
-                values (:description, :owner_id, :create_date_time, :is_deleted, :content_id)
+                VALUES (:description, :owner_id, :create_date_time, :is_deleted, :content_id);
+                INSERT INTO post_coordinates (post_id, longitude, latitude) 
+                VALUES ((SELECT currval('post_id_seq')), :longitude, :latitude)
                 """,
             parameters
         );
