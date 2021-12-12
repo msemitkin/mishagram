@@ -45,7 +45,8 @@ class PostCompositeBuilderService {
             content,
             post.getDescription(),
             post.getCreateDateTime(),
-            post.isDeleted()
+            post.isDeleted(),
+            post.getCoordinates()
         );
     }
 

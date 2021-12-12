@@ -45,7 +45,7 @@ public class CreatePostController {
             return "post/createPostForm";
         }
         CreatePostCommand createPostCommand = new CreatePostCommand(
-            ownerId, createPostRequest.getDescription(), toContent(createPostRequest.getContent())
+            ownerId, createPostRequest.getDescription(), toContent(createPostRequest.getContent()), null, null
         );
         createPostUseCase.createPost(createPostCommand);
         return "redirect:index";

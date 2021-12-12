@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.knu.mishagram.JdbcRepository;
+import ua.knu.mishagram.Point;
 import ua.knu.mishagram.Post;
 
 import java.sql.Timestamp;
@@ -29,7 +30,7 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
             return Optional.ofNullable(
                 jdbcTemplate.queryForObject(
                     """
-                        SELECT * FROM "post" WHERE id = :id
+                        SELECT * FROM "post" p LEFT JOIN post_coordinates pc ON p.id = pc.post_id WHERE p.id = :id
                         """,
                     Map.of("id", id),
                     getPostRowMapper()
@@ -44,7 +45,7 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
     public @NotNull List<Post> loadAllByIds(List<Integer> ids) {
         return jdbcTemplate.query(
             """
-                SELECT * FROM "post" WHERE id in :ids
+                SELECT * FROM "post" p LEFT JOIN post_coordinates pc ON p.id = pc.post_id WHERE p.id in :ids
                 """,
             new MapSqlParameterSource("ids", ids),
             getPostRowMapper()
@@ -55,7 +56,10 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
     public @NotNull List<Post> loadAllByUserId(int ownerId) {
         return jdbcTemplate.query(
             """
-                SELECT * FROM "post" WHERE owner_id = :owner_id
+                SELECT *
+                FROM "post" p
+                         LEFT JOIN post_coordinates pc ON p.id = pc.post_id
+                WHERE p.owner_id = :owner_id
                 """,
             new MapSqlParameterSource("owner_id", ownerId),
             getPostRowMapper()
@@ -64,12 +68,12 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
 
     @Override
     public @NotNull List<Post> getAllAfterDateTime(@NotNull List<Integer> userIds, @NotNull LocalDateTime since) {
-        if(userIds.isEmpty()) {
+        if (userIds.isEmpty()) {
             return Collections.emptyList();
         }
         return jdbcTemplate.query(
             """
-                SELECT * FROM "post" WHERE owner_id in (:userIds)
+                SELECT * FROM "post" p LEFT JOIN post_coordinates pc ON p.id = pc.post_id WHERE p.owner_id in (:userIds)
                 AND create_date_time > :since
                 ORDER BY create_date_time DESC
                 """,
@@ -85,7 +89,11 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
             resultSet.getInt("content_id"),
             resultSet.getString("description"),
             resultSet.getTimestamp("create_date_time").toLocalDateTime(),
-            resultSet.getBoolean("is_deleted")
+            resultSet.getBoolean("is_deleted"),
+            new Point(
+                resultSet.getDouble("longitude"),
+                resultSet.getDouble("latitude")
+            )
         );
     }
 }

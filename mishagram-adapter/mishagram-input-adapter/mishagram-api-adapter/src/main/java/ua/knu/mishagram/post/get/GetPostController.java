@@ -1,6 +1,7 @@
 package ua.knu.mishagram.post.get;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ public class GetPostController {
         return getPostUseCase.getById(id);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/api/users/{ownerId}/posts")
     public List<PostComposite> getUserPosts(@PathVariable("ownerId") int ownerId) {
         return getPostUseCase.getAllByOwnerId(ownerId);

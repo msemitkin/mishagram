@@ -44,7 +44,9 @@ public class CreatePostController {
         CreatePostCommand createPostCommand = new CreatePostCommand(
             ownerId,
             createPostDto.getDescription(),
-            toContent(file)
+            toContent(file),
+            createPostDto.getLon(),
+            createPostDto.getLat()
         );
 
         createPostUseCase.createPost(createPostCommand);
