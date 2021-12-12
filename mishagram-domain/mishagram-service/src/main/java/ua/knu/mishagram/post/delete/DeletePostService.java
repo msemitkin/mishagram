@@ -32,7 +32,8 @@ public class DeletePostService implements DeletePostUseCase {
             post.getContentId(),
             post.getDescription(),
             post.getCreateDateTime(),
-            true
+            true,
+            post.getCoordinates()
         );
 
         updatePostPort.update(deletedPost);

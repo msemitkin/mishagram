@@ -17,7 +17,8 @@ public class PostConverter {
             "data:image/png;base64," + Base64.getEncoder().encodeToString(byteContent),
             postComposite.getDescription(),
             postComposite.getCreateDateTime(),
-            postComposite.isDeleted()
+            postComposite.isDeleted(),
+            postComposite.getCoordinates()
         );
     }
 }

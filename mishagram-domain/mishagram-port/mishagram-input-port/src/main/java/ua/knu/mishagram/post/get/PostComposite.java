@@ -1,7 +1,9 @@
 package ua.knu.mishagram.post.get;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ua.knu.mishagram.Content;
+import ua.knu.mishagram.Point;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +18,8 @@ public class PostComposite {
     @NotNull
     private final LocalDateTime createDateTime;
     private final boolean isDeleted;
+    @Nullable
+    private final Point coordinates;
 
     public PostComposite(
         int id,
@@ -23,7 +27,8 @@ public class PostComposite {
         @NotNull Content content,
         @NotNull String description,
         @NotNull LocalDateTime createDateTime,
-        boolean isDeleted
+        boolean isDeleted,
+        @Nullable Point coordinates
     ) {
         this.id = id;
         this.ownerId = ownerId;
@@ -31,6 +36,7 @@ public class PostComposite {
         this.description = description;
         this.createDateTime = createDateTime;
         this.isDeleted = isDeleted;
+        this.coordinates = coordinates;
     }
 
     public int getId() {
@@ -58,5 +64,10 @@ public class PostComposite {
 
     public boolean isDeleted() {
         return isDeleted;
+    }
+
+    @Nullable
+    public Point getCoordinates() {
+        return coordinates;
     }
 }

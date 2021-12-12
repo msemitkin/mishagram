@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.knu.mishagram.Content;
+import ua.knu.mishagram.Point;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.post.SavePostContentPort;
 import ua.knu.mishagram.post.SavePostPort;
@@ -45,13 +46,18 @@ public class CreatePostService implements CreatePostUseCase {
     }
 
     private Post mapToPost(CreatePostCommand createPostCommand, int contentId) {
+        Point point = null;
+        if (createPostCommand.getLon() != null && createPostCommand.getLat() != null) {
+            point = new Point(createPostCommand.getLon(), createPostCommand.getLat());
+        }
         return new Post(
             0,
             createPostCommand.getOwnerId(),
             contentId,
             createPostCommand.getDescription(),
             dateTimeProvider.now(),
-            false
+            false,
+            point
         );
     }
 

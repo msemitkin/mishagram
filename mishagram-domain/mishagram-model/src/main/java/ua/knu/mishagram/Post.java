@@ -1,6 +1,7 @@
 package ua.knu.mishagram;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,8 @@ public class Post {
     @NotNull
     private final LocalDateTime createDateTime;
     private final boolean isDeleted;
+    @Nullable
+    private final Point coordinates;
 
     public Post(
         int id,
@@ -21,7 +24,8 @@ public class Post {
         int contentId,
         @NotNull String description,
         @NotNull LocalDateTime createDateTime,
-         boolean isDeleted
+        boolean isDeleted,
+        @Nullable Point coordinates
     ) {
         this.id = id;
         this.ownerId = ownerId;
@@ -29,6 +33,7 @@ public class Post {
         this.description = description;
         this.createDateTime = createDateTime;
         this.isDeleted = isDeleted;
+        this.coordinates = coordinates;
     }
 
     public int getId() {
@@ -55,5 +60,10 @@ public class Post {
 
     public boolean isDeleted() {
         return isDeleted;
+    }
+
+    @Nullable
+    public Point getCoordinates() {
+        return coordinates;
     }
 }
