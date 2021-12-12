@@ -21,26 +21,30 @@ public class SavePostAdapter extends JdbcRepository implements SavePostPort, Upd
     @Override
     @Transactional
     public void save(@NotNull Post post) {
-        Map<String, Object> parameters = Map.of(
+        Map<String, Object> postParameters = Map.of(
             "description", post.getDescription(),
             "owner_id", post.getOwnerId(),
             "create_date_time", Timestamp.valueOf(post.getCreateDateTime()),
             "is_deleted", post.isDeleted(),
             "content_id", post.getContentId()
         );
-        int postId = new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate()).withTableName("post")
+        int postId = new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate())
+            .withTableName("post")
             .usingGeneratedKeyColumns("id")
-            .executeAndReturnKey(parameters)
+            .executeAndReturnKey(postParameters)
             .intValue();
+
         if (post.getCoordinates() != null) {
-            new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate()).withTableName("post_coordinates")
+            Map<String, Object> postCoordinatesParameters = Map.of(
+                "post_id", postId,
+                "longitude", post.getCoordinates().getLongitude(),
+                "latitude", post.getCoordinates().getLatitude()
+            );
+            new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate())
+                .withTableName("post_coordinates")
                 .usingGeneratedKeyColumns("id")
                 .execute(
-                    Map.of(
-                        "post_id", postId,
-                        "longitude", post.getCoordinates().getLongitude(),
-                        "latitude", post.getCoordinates().getLatitude()
-                    )
+                    postCoordinatesParameters
                 );
         }
     }
