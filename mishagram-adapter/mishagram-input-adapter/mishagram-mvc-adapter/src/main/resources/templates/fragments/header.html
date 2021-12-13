@@ -32,8 +32,63 @@
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
+            <li class="nav-item">
+                <div class="form-outline">
+                    <input type="search" id="user-autocomplete" class="form-control" placeholder="Type query"
+                           aria-label="Search"/>
+                </div>
+            </li>
         </ul>
     </div>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
+    <script>
+        $('#user-autocomplete').devbridgeAutocomplete({
+            serviceUrl: 'http://localhost:8081/api/users',
+            dataType: 'json',
+            transformResult: function (response) {
+                return {
+                    suggestions: $.map(response, function (user) {
+                        return {value: user.email, data: user.id};
+                    })
+                };
+            },
+            onSelect: function (suggestion) {
+                window.location.replace(`http://localhost:8080/users/${suggestion.data}`);
+            }
+        });
+    </script>
+    <style>
+        .autocomplete-suggestions {
+            border: 1px solid #999;
+            background: #FFF;
+            overflow: auto;
+        }
+
+        .autocomplete-suggestion {
+            padding: 2px 5px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .autocomplete-selected {
+            background: #F0F0F0;
+        }
+
+        .autocomplete-suggestions strong {
+            font-weight: normal;
+            color: #3399FF;
+        }
+
+        .autocomplete-group {
+            padding: 2px 5px;
+        }
+
+        .autocomplete-group strong {
+            display: block;
+            border-bottom: 1px solid #000;
+        }
+    </style>
 </nav>
 </body>
 </html>
