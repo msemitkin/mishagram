@@ -1,0 +1,9 @@
+services:
+  mishagram-database:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=mishagram
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    ports:
+    - "5432:5432"
