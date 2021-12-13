@@ -3,6 +3,7 @@ package ua.knu.mishagram.user;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.user.get.GetUserUseCase;
 import ua.knu.mishagram.user.get.GetUsersUseCase;
@@ -29,6 +30,7 @@ public class GetUserController {
         return getUserUseCase.getById(id);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/api/users")
     public List<User> getUsers() {
         return getUsersUseCase.getAll();
