@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, UserExistsPort, LoadAllUsersPort {
+public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, UserExistsPort,
+    LoadAllUsersPort, LoadUsersByEmailSubstringPort {
 
     private final UserRepository userRepository;
 
@@ -49,5 +50,10 @@ public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, 
     @Override
     public List<User> loadAll() {
         return userRepository.loadAll();
+    }
+
+    @Override
+    public List<User> getByEmailSubstring(String substring) {
+        return userRepository.getByEmailSubstring(substring);
     }
 }

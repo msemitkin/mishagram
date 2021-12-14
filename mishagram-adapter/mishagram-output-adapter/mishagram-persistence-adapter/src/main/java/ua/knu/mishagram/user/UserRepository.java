@@ -115,6 +115,15 @@ public class UserRepository {
         );
     }
 
+    List<User> getByEmailSubstring(String substring) {
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("substring", substring);
+        return jdbcTemplate.query(
+            "select * from \"user\" u where u.email like '%' || :substring || '%'",
+            sqlParameterSource,
+            getUserRowMapper()
+        );
+    }
+
     private RowMapper<User> getUserRowMapper() {
         return (resultSet, rowNum) -> new User(
             resultSet.getInt("id"),

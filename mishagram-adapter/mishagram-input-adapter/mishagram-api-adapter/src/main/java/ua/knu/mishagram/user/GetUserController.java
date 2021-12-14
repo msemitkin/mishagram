@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.user.get.GetUserUseCase;
+import ua.knu.mishagram.user.get.GetUsersByEmailSubStringUseCase;
 import ua.knu.mishagram.user.get.GetUsersUseCase;
 
 import java.util.List;
@@ -16,13 +17,16 @@ public class GetUserController {
 
     private final GetUserUseCase getUserUseCase;
     private final GetUsersUseCase getUsersUseCase;
+    private final GetUsersByEmailSubStringUseCase getUsersByEmailSubStringUseCase;
 
     public GetUserController(
         GetUserUseCase getUserUseCase,
-        GetUsersUseCase getUsersUseCase
+        GetUsersUseCase getUsersUseCase,
+        GetUsersByEmailSubStringUseCase getUsersByEmailSubStringUseCase
     ) {
         this.getUserUseCase = getUserUseCase;
         this.getUsersUseCase = getUsersUseCase;
+        this.getUsersByEmailSubStringUseCase = getUsersByEmailSubStringUseCase;
     }
 
     @GetMapping("/api/users/{id}")
@@ -30,10 +34,15 @@ public class GetUserController {
         return getUserUseCase.getById(id);
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/api/users")
     public List<User> getUsers() {
         return getUsersUseCase.getAll();
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/api/users/autocomplete/{query}")
+    public List<User> getUsersByQuery(@PathVariable("query") String query) {
+        return getUsersByEmailSubStringUseCase.getBySubstring(query);
     }
 
 }

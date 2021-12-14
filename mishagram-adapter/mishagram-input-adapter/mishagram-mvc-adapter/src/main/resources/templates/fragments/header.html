@@ -44,14 +44,16 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
     <script>
         $('#user-autocomplete').devbridgeAutocomplete({
-            serviceUrl: 'http://localhost:8081/api/users',
-            dataType: 'json',
-            transformResult: function (response) {
-                return {
-                    suggestions: $.map(response, function (user) {
-                        return {value: user.email, data: user.id};
-                    })
-                };
+            minChars: 3,
+            lookup: function (query, done) {
+                $.get(`http://localhost:8081/api/users/autocomplete/${query}`, function (response) {
+                    let result = {
+                        suggestions: $.map(response, function (user) {
+                            return {value: user.email, data: user.id};
+                        })
+                    };
+                    done(result);
+                });
             },
             onSelect: function (suggestion) {
                 window.location.replace(`http://localhost:8080/users/${suggestion.data}`);
