@@ -1,6 +1,7 @@
 package ua.knu.mishagram.user;
 
 import org.jetbrains.annotations.NotNull;
+import ua.knu.mishagram.OauthProvider;
 import ua.knu.mishagram.User;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface LoadUserPort {
 
     @NotNull
     List<User> loadAll(List<Integer> ids);
+
+    Optional<User> loadByOauthId(String oauthId);
 
 }

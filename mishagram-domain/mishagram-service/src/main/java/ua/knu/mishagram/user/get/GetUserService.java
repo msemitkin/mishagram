@@ -6,6 +6,8 @@ import ua.knu.mishagram.User;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
 
+import java.util.Optional;
+
 import static java.util.function.Predicate.not;
 
 @Service
@@ -30,5 +32,10 @@ public class GetUserService implements GetUserUseCase {
         return loadUserPort.loadByEmail(email)
             .filter(not(User::isDeleted))
             .orElseThrow(() -> new UserNotFoundException("User with given email does not exist"));
+    }
+
+    @Override
+    public @NotNull Optional<User> getByOauthId(String oauthId) {
+        return loadUserPort.loadByOauthId(oauthId);
     }
 }
