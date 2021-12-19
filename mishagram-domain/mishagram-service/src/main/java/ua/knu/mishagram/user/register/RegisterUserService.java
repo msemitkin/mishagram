@@ -2,7 +2,9 @@ package ua.knu.mishagram.user.register;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.knu.mishagram.User;
+import ua.knu.mishagram.UserOauthInfo;
 import ua.knu.mishagram.exceptions.EmailAlreadyUsedException;
 import ua.knu.mishagram.time.DateTimeProvider;
 import ua.knu.mishagram.user.LoadUserPort;
@@ -42,6 +44,28 @@ public class RegisterUserService implements RegisterUserUseCase {
         saveUserPort.saveUser(user);
     }
 
+    @Override
+    @Transactional
+    public void registerOauthUser(RegisterOauthUserCommand registerOauthUserCommand) {
+        String oauthId = registerOauthUserCommand.getOauthId();
+        Optional<User> existingUser = loadUserPort.loadByOauthId(oauthId);
+        if (existingUser.isPresent()) {
+            throw new IllegalArgumentException("User with such oauthId already exists");
+        }
+        User user = mapToUser(registerOauthUserCommand);
+        saveUserPort.saveUser(user);
+        int savedUserId = loadUserPort.loadByEmail(user.getEmail()).map(User::getId)
+            .orElseThrow(() -> new RuntimeException("Failed to save user"));
+        saveUserPort.saveUserOauthInfo(
+            new UserOauthInfo(
+                savedUserId,
+                registerOauthUserCommand.getOauthId(),
+                registerOauthUserCommand.getOauthProvider()
+            )
+        );
+
+    }
+
     private User mapToUser(RegisterUserCommand registerUserCommand, String encodedPassword) {
         return new User(
             0,
@@ -49,6 +73,16 @@ public class RegisterUserService implements RegisterUserUseCase {
             false,
             dateTimeProvider.now(),
             encodedPassword
+        );
+    }
+
+    private User mapToUser(RegisterOauthUserCommand registerOauthUserCommand) {
+        return new User(
+            0,
+            registerOauthUserCommand.getEmail(),
+            false,
+            dateTimeProvider.now(),
+            ""
         );
     }
 }

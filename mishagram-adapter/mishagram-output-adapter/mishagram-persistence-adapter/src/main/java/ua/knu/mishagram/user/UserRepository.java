@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import ua.knu.mishagram.User;
+import ua.knu.mishagram.UserOauthInfo;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -121,6 +122,38 @@ public class UserRepository {
             "select * from \"user\" u where u.email like '%' || :substring || '%'",
             sqlParameterSource,
             getUserRowMapper()
+        );
+    }
+
+    Optional<User> loadByOauth(String oauthId) {
+        try {
+            return Optional.ofNullable(
+                jdbcTemplate.queryForObject(
+                    """
+                        SELECT * FROM \"user\" u 
+                            JOIN user_oauth_info uoi ON u.id = uoi.user_id
+                            WHERE uoi.oauth_id = :oauth_id
+                    """,
+                    Map.of( "oauth_id", oauthId),
+                    getUserRowMapper()
+                )
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    void saveOauthInfo(UserOauthInfo userOauthInfo) {
+        jdbcTemplate.update(
+            """
+                INSERT INTO user_oauth_info (user_id, oauth_id, oauth_provider) 
+                VALUES (:user_id, :oauth_id, :oauth_provider)
+            """,
+            Map.of(
+                "user_id", userOauthInfo.getUserId(),
+                "oauth_id", userOauthInfo.getOauthId(),
+                "oauth_provider", userOauthInfo.getOauthProvider().name()
+            )
         );
     }
 

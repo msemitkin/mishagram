@@ -19,6 +19,9 @@ public class AuthenticationProvider {
     public User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
+        if (principal instanceof User) {
+            return (User) principal;
+        }
         UserDetails userDetails = (UserDetails) principal;
         String email = userDetails.getUsername();
         return getUserUseCase.getByEmail(email);

@@ -3,6 +3,7 @@ package ua.knu.mishagram.user;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 import ua.knu.mishagram.User;
+import ua.knu.mishagram.UserOauthInfo;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +34,18 @@ public class UserAdapter implements LoadUserPort, SaveUserPort, UpdateUserPort, 
     }
 
     @Override
+    public Optional<User> loadByOauthId(String oauthId) {
+        return userRepository.loadByOauth(oauthId);
+    }
+
+    @Override
     public void saveUser(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public void saveUserOauthInfo(UserOauthInfo userOauthInfo) {
+        userRepository.saveOauthInfo(userOauthInfo);
     }
 
     @Override
