@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.util.Objects.nonNull;
+
 @Repository
 public class GetPostAdapter extends JdbcRepository implements LoadPostPort, LoadUserPostsAfterDateTimePort {
 
@@ -83,17 +85,19 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
     }
 
     private RowMapper<Post> getPostRowMapper() {
-        return (resultSet, rowNum) -> new Post(
-            resultSet.getInt("id"),
-            resultSet.getInt("owner_id"),
-            resultSet.getInt("content_id"),
-            resultSet.getString("description"),
-            resultSet.getTimestamp("create_date_time").toLocalDateTime(),
-            resultSet.getBoolean("is_deleted"),
-            new Point(
-                resultSet.getDouble("longitude"),
-                resultSet.getDouble("latitude")
-            )
-        );
+        return (resultSet, rowNum) -> {
+            Double longitude = resultSet.getObject("longitude", Double.class);
+            Double latitude = resultSet.getObject("latitude", Double.class);
+            Point point = nonNull(longitude) && nonNull(latitude) ? new Point(longitude, latitude) : null;
+            return new Post(
+                resultSet.getInt("id"),
+                resultSet.getInt("owner_id"),
+                resultSet.getInt("content_id"),
+                resultSet.getString("description"),
+                resultSet.getTimestamp("create_date_time").toLocalDateTime(),
+                resultSet.getBoolean("is_deleted"),
+                point
+            );
+        };
     }
 }
