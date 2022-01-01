@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static ua.knu.mishagram.test.util.TestUtils.toJson;
 
 @ExtendWith(MockitoExtension.class)
 class GetFavouritePostsServiceTest {
@@ -53,6 +53,8 @@ class GetFavouritePostsServiceTest {
 
         List<Post> actualPosts = getFavouritePostsService.getUserFavouritePosts(USER_ID);
 
-        Assertions.assertEquals(toJson(posts), toJson(actualPosts));
+        assertThat(actualPosts)
+            .usingRecursiveComparison()
+            .isEqualTo(posts);
     }
 }

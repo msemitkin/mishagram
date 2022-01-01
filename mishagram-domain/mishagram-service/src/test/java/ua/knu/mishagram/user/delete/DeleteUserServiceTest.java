@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static ua.knu.mishagram.test.util.TestUtils.is;
 
 @ExtendWith(MockitoExtension.class)
 class DeleteUserServiceTest {
@@ -48,7 +48,7 @@ class DeleteUserServiceTest {
 
         deleteUserService.deleteUser(USER_ID);
 
-        verify(updateUserPort).update(is(new User(USER_ID, "email", true, TEST_DATE, "pass")));
+        verify(updateUserPort).update(refEq(new User(USER_ID, "email", true, TEST_DATE, "pass")));
     }
 
     @Test

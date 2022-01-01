@@ -7,13 +7,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.User;
-import ua.knu.mishagram.test.util.TestUtils;
 import ua.knu.mishagram.user.LoadUserPort;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,6 +50,8 @@ class GetUserServiceTest {
 
         User actualUser = getUserService.getById(USER_ID);
 
-        TestUtils.assertJsonModelsEquals(user, actualUser);
+        assertThat(actualUser)
+            .usingRecursiveComparison()
+            .isEqualTo(user);
     }
 }

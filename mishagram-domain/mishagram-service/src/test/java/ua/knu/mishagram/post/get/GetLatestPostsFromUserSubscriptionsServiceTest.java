@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.Content;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.subscription.LoadUserSubscriptionsPort;
-import ua.knu.mishagram.test.util.TestUtils;
 import ua.knu.mishagram.time.DateTimeProvider;
 
 import java.time.LocalDateTime;
@@ -17,6 +16,7 @@ import java.time.Period;
 import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,8 +66,8 @@ class GetLatestPostsFromUserSubscriptionsServiceTest {
     void getAllFromUserSubscriptionsInPeriod_successFlow() {
         List<Integer> subscriptions = List.of(33, 44, 55);
         List<Post> posts = List.of(
-            new Post(1, 33, 333,"text33", TEST_DATE, false),
-            new Post(2, 44, 444,"text44", TEST_DATE, false)
+            new Post(1, 33, 333, "text33", TEST_DATE, false),
+            new Post(2, 44, 444, "text44", TEST_DATE, false)
         );
         when(loadUserSubscriptionsPort.getAllByUserId(USER_ID)).thenReturn(subscriptions);
         when(dateTimeProvider.now()).thenReturn(TEST_DATE);
@@ -81,6 +81,8 @@ class GetLatestPostsFromUserSubscriptionsServiceTest {
         List<PostComposite> actualPosts = getLatestPostsFromUserSubscriptionsService
             .getAllFromUserSubscriptionsInPeriod(USER_ID, PERIOD);
 
-        TestUtils.assertJsonModelsEquals(postComposites, actualPosts);
+        assertThat(actualPosts)
+            .usingRecursiveComparison()
+            .isEqualTo(postComposites);
     }
 }

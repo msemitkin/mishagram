@@ -7,13 +7,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.User;
-import ua.knu.mishagram.test.util.TestUtils;
 import ua.knu.mishagram.user.LoadUserPort;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 
@@ -40,15 +40,17 @@ class GetSubscriptionsServiceTest {
 
     @Test
     void getAllByUserId_successFlow() {
-        when(loadUserSubscriptionsPort.getAllByUserId(USER_ID)).thenReturn(List.of(1,2));
+        when(loadUserSubscriptionsPort.getAllByUserId(USER_ID)).thenReturn(List.of(1, 2));
         List<User> users = List.of(
             new User(1, "email1", false, LocalDateTime.now(), "hash1"),
             new User(2, "email2", false, LocalDateTime.now(), "hash2")
         );
-        when(loadUserPort.loadAll(List.of(1,2))).thenReturn(users);
+        when(loadUserPort.loadAll(List.of(1, 2))).thenReturn(users);
 
         List<User> actualUsers = getSubscriptionsService.getAllByUserId(USER_ID);
 
-        TestUtils.assertJsonModelsEquals(users, actualUsers);
+        assertThat(actualUsers)
+            .usingRecursiveComparison()
+            .isEqualTo(users);
     }
 }

@@ -16,9 +16,9 @@ import ua.knu.mishagram.user.SaveUserPort;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static ua.knu.mishagram.test.util.TestUtils.is;
 
 @ExtendWith(MockitoExtension.class)
 class RegisterUserServiceTest {
@@ -56,6 +56,6 @@ class RegisterUserServiceTest {
         registerUserService.registerUser(registerUserCommand);
 
         User expectedUser = new User(0, "some email", false, TEST_DATE, "encoded pass");
-        verify(saveUserPort).saveUser(is(expectedUser));
+        verify(saveUserPort).saveUser(refEq(expectedUser));
     }
 }

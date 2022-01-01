@@ -9,13 +9,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.knu.mishagram.User;
 import ua.knu.mishagram.exceptions.PostNotFoundException;
 import ua.knu.mishagram.post.get.PostExistsPort;
-import ua.knu.mishagram.test.util.TestUtils;
 import ua.knu.mishagram.user.LoadUserPort;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -63,6 +63,8 @@ class GetUsersLikedServiceTest {
 
         List<User> actualUsers = getUsersLikedService.getUsersLiked(POST_ID);
 
-        TestUtils.assertJsonModelsEquals(users, actualUsers);
+        assertThat(actualUsers)
+            .usingRecursiveComparison()
+            .isEqualTo(users);
     }
 }

@@ -10,7 +10,6 @@ import ua.knu.mishagram.Content;
 import ua.knu.mishagram.Post;
 import ua.knu.mishagram.content.LoadFileContentPort;
 import ua.knu.mishagram.exceptions.PostNotFoundException;
-import ua.knu.mishagram.test.util.TestUtils;
 import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
 
@@ -18,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -54,7 +54,9 @@ class GetPostServiceTest {
 
         PostComposite actualPost = getPostService.getById(5);
 
-        TestUtils.assertJsonModelsEquals(postComposite, actualPost);
+        assertThat(actualPost)
+            .usingRecursiveComparison()
+            .isEqualTo(postComposite);
     }
 
     @Test
@@ -95,6 +97,8 @@ class GetPostServiceTest {
 
         List<PostComposite> actualPosts = getPostService.getAllByOwnerId(USER_ID);
 
-        TestUtils.assertJsonModelsEquals(postComposites, actualPosts);
+        assertThat(actualPosts)
+            .usingRecursiveComparison()
+            .isEqualTo(postComposites);
     }
 }

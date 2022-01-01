@@ -15,12 +15,10 @@ import ua.knu.mishagram.user.UserExistsPort;
 import ua.knu.mishagram.exceptions.UserNotFoundException;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-import static org.mockito.Mockito.argThat;
+import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static ua.knu.mishagram.test.util.TestUtils.toJson;
 
 @ExtendWith(MockitoExtension.class)
 class CreatePostServiceTest {
@@ -65,6 +63,6 @@ class CreatePostServiceTest {
         createPostService.createPost(createPostCommand);
 
         Post expectedPost = new Post(0, USER_ID, contentId, "some text", DATE_TIME, false);
-        verify(savePostPort).save(argThat(actualPost -> Objects.equals(toJson(actualPost), toJson(expectedPost))));
+        verify(savePostPort).save(refEq(expectedPost));
     }
 }
