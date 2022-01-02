@@ -35,5 +35,8 @@ jobs:
       - name: Codecov
         env:
           $CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: ./gradlew codeCoverageReport bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+        run: |
+        ./gradlew codeCoverageReport
+        bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+
 
