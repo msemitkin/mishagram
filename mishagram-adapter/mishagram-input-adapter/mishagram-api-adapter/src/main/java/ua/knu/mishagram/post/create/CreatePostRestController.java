@@ -22,11 +22,11 @@ import java.util.Optional;
 import static ua.knu.mishagram.errorhandling.ErrorReason.INVALID_FILE_ERROR;
 
 @RestController
-public class CreatePostController {
+public class CreatePostRestController {
 
     private final CreatePostUseCase createPostUseCase;
 
-    public CreatePostController(CreatePostUseCase createPostUseCase) {
+    public CreatePostRestController(CreatePostUseCase createPostUseCase) {
         this.createPostUseCase = createPostUseCase;
     }
 

@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class RegisterUserController {
+public class RegisterUserRestController {
 
     private final RegisterUserUseCase registerUserUseCase;
 
-    public RegisterUserController(RegisterUserUseCase registerUserUseCase) {
+    public RegisterUserRestController(RegisterUserUseCase registerUserUseCase) {
         this.registerUserUseCase = registerUserUseCase;
     }
 
