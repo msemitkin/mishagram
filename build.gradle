@@ -3,6 +3,10 @@ plugins {
 }
 allprojects {
     version = '0.0.1-SNAPSHOT'
+    apply plugin: 'jacoco'
+    repositories {
+        mavenCentral()
+    }
 }
 subprojects {
     apply plugin: 'java'
@@ -10,17 +14,34 @@ subprojects {
     sourceCompatibility = '17'
     targetCompatibility = '17'
 
-    repositories {
-        mavenCentral()
-    }
 
     dependencies {
         implementation 'org.jetbrains:annotations:16.0.1'
     }
+    test.useJUnitPlatform()
 }
 
 ext {
     spring_framework_version = '2.5.5'
     postgresql_driver_version = '42.2.24'
     flyway_version = '5.0.3'
+}
+
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
+
+    reports {
+        xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        html.enabled false
+        csv.enabled false
+    }
+}
+
+codeCoverageReport.dependsOn {
+    subprojects*.test
 }
