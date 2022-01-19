@@ -86,8 +86,12 @@ public class GetPostAdapter extends JdbcRepository implements LoadPostPort, Load
 
     private RowMapper<Post> getPostRowMapper() {
         return (resultSet, rowNum) -> {
-            Double longitude = resultSet.getObject("longitude", Double.class);
-            Double latitude = resultSet.getObject("latitude", Double.class);
+            Double longitude = Optional.ofNullable(resultSet.getObject("longitude", Float.class))
+                .map(Float::doubleValue)
+                .orElse(null);
+            Double latitude = Optional.ofNullable(resultSet.getObject("latitude", Float.class))
+                .map(Float::doubleValue)
+                .orElse(null);
             Point point = nonNull(longitude) && nonNull(latitude) ? new Point(longitude, latitude) : null;
             return new Post(
                 resultSet.getInt("id"),
